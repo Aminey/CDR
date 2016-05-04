@@ -3,17 +3,21 @@
 % need all x-values used to plot airfoil. need stringer area, spar cap area,
 % and stringer, spar, and spar cap x-locations
 
+x = airfoil.booms.x_coordinates;                %%
+y = airfoil.booms.y_coordinates;
+
+
 BOOM_A_ALT = zeros(length(x),length(z),5);
 BOOM_A_SEA = zeros(length(x),length(z),5);
 
 for k = 1:5
     for j = 1:length(z)    
-        for i = 2:length(coordinates)-1
-            dist_rear = ((coordinates.x(i)+coordinates.x(i-1))^2 + (coordinates.y(i)+coordinates.y(i-1))^2)^0.5;
-            dist_fore = ((coordinates.x(i)+coordinates.x(i+1))^2 + (coordiantes.y(i)+coordinates.y(i+1))^2)^0.5;
-            if ismember(coordinates.x(i),stringers.x) == 1;
+        for i = 2:length(x)-1
+            dist_rear = ((x(i)+x(i-1))^2 + (y(i)+y(i-1))^2)^0.5;
+            dist_fore = ((x(i)+x(i+1))^2 + (y(i)+y(i+1))^2)^0.5;
+            if ismember(x(i),stringers.x) && ismember(y(i),stringers.y) == 1;
                 area_term = stringers.area;
-            elseif ismember(coordinates.x(i),caps.x) == 1;
+            elseif ismember(x(i),caps.x) == 1;
                 area_term = caps.area;
             else
                 area_term = 0;
@@ -25,34 +29,34 @@ for k = 1:5
         end
         
 %% First Coordinate
-        BOOM_A_ALT(1,j,k) = kt * (((coordinates.x(end)-coordinates.x(1))^2 + (coordinates.y(end)-coordinates.y(1))^2)^0.5)/6 *...
+        BOOM_A_ALT(1,j,k) = kt * (((x(end)-x(1))^2 + (y(end)-y(1))^2)^0.5)/6 *...
                               (2 + sigma_z.alt(end,j,k)/sigma_z.alt(1,j,k))+...
-                              kt * (((coordinates.x(2)-coordinates.x(1))^2 + (coordinates.y(2)-coordinates.y(1))^2)^0.5)/6*...
+                              kt * (((x(2)-x(1))^2 + (y(2)-y(1))^2)^0.5)/6*...
                               (2 + sigma_z.alt(2,j,k)/sigma_z.alt(1,j,k));
-        BOOM_A_SEA(1,j,k) = kt * (((coordinates.x(end)-coordinates.x(1))^2 + (coordinates.y(end)-coordinates.y(1))^2)^0.5)/6 *...
+        BOOM_A_SEA(1,j,k) = kt * (((x(end)-x(1))^2 + (y(end)-y(1))^2)^0.5)/6 *...
                               (2 + sigma_z.sea(end,j,k)/sigma_z.sea(1,j,k))+...
-                              kt * (((coordinates.x(2)-coordinates.x(1))^2 + (coordinates.y(2)-coordinates.y(1))^2)^0.5)/6*...
+                              kt * (((x(2)-x(1))^2 + (y(2)-y(1))^2)^0.5)/6*...
                               (2 + sigma_z.sea(2,j,k)/sigma_z.sea(1,j,k));
        
 
 %% Last Coordinate
-        BOOM_A_ALT(end,j,k) = kt * (((coordinates.x(end)-coordinates.x(end-1))^2 + (coordinates.y(end)-coordinates.y(end-1))^2)^0.5)/6 *...
+        BOOM_A_ALT(end,j,k) = kt * (((x(end)-x(end-1))^2 + (y(end)-y(end-1))^2)^0.5)/6 *...
                               (2 + sigma_z.alt(end-1,j,k)/sigma_z.alt(end,j,k))+...
-                              kt * (((coordinates.x(end)-coordinates.x(1))^2 + (coordinates.y(end)-coordinates.y(1))^2)^0.5)/6*...
+                              kt * (((x(end)-x(1))^2 + (y(end)-y(1))^2)^0.5)/6*...
                               (2 + sigma_z.alt(1,j,k)/sigma_z.alt(end,j,k));
-        BOOM_A_SEA(end,j,k) = kt * (((coordinates.x(end)-coordinates.x(end-1))^2 + (coordinates.y(end)-coordinates.y(end-1))^2)^0.5)/6 *...
+        BOOM_A_SEA(end,j,k) = kt * (((x(end)-x(end-1))^2 + (y(end)-y(end-1))^2)^0.5)/6 *...
                               (2 + sigma_z.sea(end-1,j,k)/sigma_z.sea(end,j,k))+...
-                              kt * (((coordinates.x(end)-coordinates.x(1))^2 + (coordinates.y(end)-coordinates.y(1))^2)^0.5)/6*...
+                              kt * (((x(end)-x(1))^2 + (y(end)-y(1))^2)^0.5)/6*...
                               (2 + sigma_z.sea(1,j,k)/sigma_z.sea(end,j,k));
        
        
 
 %% Stringers on first and last coordinates?
-        if ismember(coordinates.x(1),stringers.x)==1
+        if ismember(x(1),stringers.x)==1
            BOOM_A_ALT(1,j,k) = BOOM_A_ALT(1,j,k) + stringers.area; 
            BOOM_A_SEA(1,j,k) = BOOM_A_SEA(1,j,k) + stringers.area;
         end
-        if ismember(coordinates.x(end),stringers.x)==1
+        if ismember(x(end),stringers.x)==1
            BOOM_A_ALT(end,j,k) = BOOM_A_ALT(end,j,k) + stringers.area; 
            BOOM_A_SEA(end,j,k) = BOOM_A_SEA(end,j,k) + stringers.area;
         end
@@ -61,7 +65,7 @@ for k = 1:5
 
 %% Add the contribution of spars
 %% i think this is wrong :(
-        if_cap = ismember(coordinates.x,caps.x);
+        if_cap = ismember(x,caps.x);
         i_Bspar = find(if_cap);
 
         for i = 1:2
