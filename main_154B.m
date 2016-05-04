@@ -75,6 +75,7 @@ structure.st = 0.0025;                % m   spar thickness
 structure.bl = 0.012;                 % m   bracket height
 structure.bt = 0.0025;                % m   bracket thickness`
 structure.E  = 70E9;                  % Pa  Young's Modulus
+
 wing = build_wing(c,structure,theta); % Build wing
 [wing_section_centroid, structure, component_moments] = calculate_geometry(wing,c,structure,theta);
 
