@@ -68,8 +68,8 @@ alpha.alt(5) = ((CL_altt(5)-C_L0_alt)/C_La_alt)*180/pi - atand(15.24/63.9); %deg
 alpha.alt(4) = alpha.alt(4) - atand(15.24/63.9);
 alpha.alt(5) = alpha.alt(5) - atand(7.62/95.8);
 
-%% Structural Elements and Parameters
-%box beam parameters
+%% Structural Elements and parameters
+%box beam
 structure.kt = 0.001016;              % m   skin thickness
 structure.sh = 0.08;                  % m
 structure.st = 0.0025;                % m   spar thickness
