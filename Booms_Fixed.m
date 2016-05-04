@@ -2,9 +2,13 @@
 
 % need all x-values used to plot airfoil. need stringer area, spar cap area,
 % and stringer, spar, and spar cap x-locations
+x = zeros(1,length(airfoil.booms));
+y = zeros(1,length(airfoil.booms));
 
-x = airfoil.booms.x_coordinates;                %%
-y = airfoil.booms.y_coordinates;
+for i = 1:length(airfoil.booms)
+    x(i) = airfoil.booms(i).x_coordinate;                %%
+    y(i) = airfoil.booms(i).y_coordinate;
+end
 
 
 BOOM_A_ALT = zeros(length(x),length(z),5);
@@ -15,9 +19,9 @@ for k = 1:5
         for i = 2:length(x)-1
             dist_rear = ((x(i)+x(i-1))^2 + (y(i)+y(i-1))^2)^0.5;
             dist_fore = ((x(i)+x(i+1))^2 + (y(i)+y(i+1))^2)^0.5;
-            if ismember(x(i),stringers.x) && ismember(y(i),stringers.y) == 1;
+            if airfoil.booms(i).isStringer
                 area_term = stringers.area;
-            elseif ismember(x(i),caps.x) == 1;
+            elseif airfoil.booms(i).isCap
                 area_term = caps.area;
             else
                 area_term = 0;
@@ -52,27 +56,29 @@ for k = 1:5
        
 
 %% Stringers on first and last coordinates?
-        if ismember(x(1),stringers.x)==1
+        if airfoil.booms(1).isStringer
            BOOM_A_ALT(1,j,k) = BOOM_A_ALT(1,j,k) + stringers.area; 
            BOOM_A_SEA(1,j,k) = BOOM_A_SEA(1,j,k) + stringers.area;
         end
-        if ismember(x(end),stringers.x)==1
+        if airfoil.booms(end).isStringer
            BOOM_A_ALT(end,j,k) = BOOM_A_ALT(end,j,k) + stringers.area; 
            BOOM_A_SEA(end,j,k) = BOOM_A_SEA(end,j,k) + stringers.area;
         end
        
 
 
-%% Add the contribution of spars
-%% i think this is wrong :(
-        if_cap = ismember(x,caps.x);
-        i_Bspar = find(if_cap);
+%% Add the contribution of spar's path for shear flow
+for i = 1:4   %% two spars will have four connection points. going counterclockwise, connection 1 will be the top of the rear spar, and 4 will be the bottom. 2 and 3 will be the top and bottom of the forward spar
 
-        for i = 1:2
-            BOOM_A_SEA(i_Bspar(i),j,k) = BOOM_A_SEA(i_Bspar(i),j,k) + kt * spars.height(i)/6 * (2 + sigma_z.sea(i_BsparL(i),j,k)/sigma_z.sea_upper(i_BsparU(i)));
-            BOOM_A_ALT(i_Bspar(i),j,k) = BOOM_A_ALT(i_Bspar(i),j,j) + kt * spars.height(i)/6 * (2 + sigma_z.alt(i_BsparU(i),j,k)/sigma_z.alt_lower(i_BsparL(i)));
-        end
+    BOOM_A_SEA(spar connection point i's x-coordiate,j,k) = BOOM_A_SEA(spar connection point i's x-coordiate,j,k) + kt * spars.height(1)/6 * ...
+                                                        (2 + sigma_z.sea(spar connection point (5-i)'s x-coordinate,j,k)/sigma_z.sea(spar connection point i's x-coordinate,j,k));
 
+
+
+    BOOM_A_ALT(spar connection point i's x-coordiate,j,k) = BOOM_A_ALT(spar connection point i's x-coordiate,j,k) + kt * spars.height(1)/6 * ...
+                                                        (2 + sigma_z.alt(spar connection point (5-i)'s x-coordinate,j,k)/sigma_z.alt(spar connection point i's x-coordinate,j,k));
+
+end
     end
 end
 
