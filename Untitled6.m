@@ -8,8 +8,8 @@ for i = 1:length(airfoil.booms)
     y(i) = airfoil.booms(i).y_coordinate;
 end
 
-qb_sea = zeros(length(x)*2,length(z),5);
-qb_alt = zeros(length(x)*2,length(z),5);
+qb_sea = zeros(length(x),length(z),5);
+qb_alt = zeros(length(x),length(z),5);
 
 for k = 1:5
     for j = 1:length(z)
