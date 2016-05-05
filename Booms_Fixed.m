@@ -68,17 +68,28 @@ for k = 1:5
 
 
 %% Add the contribution of spar's path for shear flow
-for i = 1:4   %% two spars will have four connection points. going counterclockwise, connection 1 will be the top of the rear spar, and 4 will be the bottom. 2 and 3 will be the top and bottom of the forward spar
+    m = 1;
+    spar_holder = zeros(1,4);  
+    
+    for i = 1:length(airfoil.booms)
+        if airfoil.booms(i).isSpars
+           spar_holder(m) = i;
+        end
+    end
+    
+    for m = 1:4   % two spars will have four connection points. going counterclockwise, connection 1 will be the top of the rear 
+                  % spar and 4 will be the bottom. 2 and 3 will be the top
+                  % and bottom of the forward spar. thus, index (5-m) is
+                  % used to relate spar connections 1 and 4 and connections 2 and 3
+         BOOM_A_SEA(spar_holder(m),j,k) = BOOM_A_SEA(spar_holder(m),j,k) + kt * spars.height(1)/6 * ...
+                                                        (2 + sigma_z.sea(spar_holder(5-m),j,k)/sigma_z.sea(spar_holder(m),j,k));
 
-    BOOM_A_SEA(spar connection point i's x-coordiate,j,k) = BOOM_A_SEA(spar connection point i's x-coordiate,j,k) + kt * spars.height(1)/6 * ...
-                                                        (2 + sigma_z.sea(spar connection point (5-i)'s x-coordinate,j,k)/sigma_z.sea(spar connection point i's x-coordinate,j,k));
 
 
+         BOOM_A_ALT(spar_holder(m),j,k) = BOOM_A_ALT(spar_holder(m),j,k) + kt * spars.height(1)/6 * ...
+                                                        (2 + sigma_z.alt(spar_holder(5-m),j,k)/sigma_z.alt(spar_holder(5-m),j,k));
 
-    BOOM_A_ALT(spar connection point i's x-coordiate,j,k) = BOOM_A_ALT(spar connection point i's x-coordiate,j,k) + kt * spars.height(1)/6 * ...
-                                                        (2 + sigma_z.alt(spar connection point (5-i)'s x-coordinate,j,k)/sigma_z.alt(spar connection point i's x-coordinate,j,k));
-
-end
+    end
     end
 end
 

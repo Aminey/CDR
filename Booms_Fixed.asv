@@ -67,26 +67,26 @@ for k = 1:5
        
 
 
-%% Add the contribution of spars
-BOOM_A_SEA(spar connection point 1's x-coordiate,j,k) = BOOM_A_SEA(spar connection point 1's x-coordiate,j,k) + kt * spars.height(1)/6 * ...
-                                                        (2 + sigma_z.sea(spar connection point 4's x-coordinate,j,k)/sigma_z.sea(spar connection point 1's x-coordinate,j,k));
+%% Add the contribution of spar's path for shear flow
+    m = 1;
+    spar_holder = zeros(1,4);  
+    
+    for i = 1:length(airfoil.booms)
+        if airfoil.booms(i).isSpars
+           spar_holder(m) = i;
+        end
+    end
+    
+    for m = 1:4   %% two spars will have four connection points. going counterclockwise, connection 1 will be the top of the rear spar, and 4 will be the bottom. 2 and 3 will be the top and bottom of the forward spar
+         BOOM_A_SEA(spar_holder(m),j,k) = BOOM_A_SEA(spar_holder(m),j,k) + kt * spars.height(1)/6 * ...
+                                                        (2 + sigma_z.sea(spar_holder(5-m),j,k)/sigma_z.sea(spar connection point i's x-coordinate,j,k));
 
-BOOM_A_SEA(spar connection point 2's x-coordiate,j,k) = BOOM_A_SEA(spar connection point 2's x-coordiate,j,k) + kt * spars.height(1)/6 * (2 + sigma_z.sea(spar connection point 3's x-coordinate,j,k)/sigma_z.sea(spar connection point 2's x-coordinate,j,k));
 
-BOOM_A_SEA(spar connection point 3's x-coordiate,j,k) = BOOM_A_SEA(spar connection point 3's x-coordiate,j,k) + kt * spars.height(1)/6 * (2 + sigma_z.sea(spar connection point 2's x-coordinate,j,k)/sigma_z.sea(spar connection point 3's x-coordinate,j,k));
 
-BOOM_A_SEA(spar connection point 4's x-coordiate,j,k) = BOOM_A_SEA(spar connection point 4's x-coordiate,j,k) + kt * spars.height(1)/6 * (2 + sigma_z.sea(spar connection point 1's x-coordinate,j,k)/sigma_z.sea(spar connection point 4's x-coordinate,j,k));
+         BOOM_A_ALT(spar connection point i's x-coordiate,j,k) = BOOM_A_ALT(spar connection point i's x-coordiate,j,k) + kt * spars.height(1)/6 * ...
+                                                        (2 + sigma_z.alt(spar connection point (5-i)'s x-coordinate,j,k)/sigma_z.alt(spar connection point i's x-coordinate,j,k));
 
-%
-
-BOOM_A_ALT(spar connection point 1's x-coordiate,j,k) = BOOM_A_ALT(spar connection point 1's x-coordiate,j,k) + kt * spars.height(1)/6 * (2 + sigma_z.alt(spar connection point 4's x-coordinate,j,k)/sigma_z.alt(spar connection point 1's x-coordinate,j,k));
-
-BOOM_A_ALT(spar connection point 2's x-coordiate,j,k) = BOOM_A_ALT(spar connection point 2's x-coordiate,j,k) + kt * spars.height(1)/6 * (2 + sigma_z.alt(spar connection point 3's x-coordinate,j,k)/sigma_z.alt(spar connection point 2's x-coordinate,j,k));
-
-BOOM_A_ALT(spar connection point 3's x-coordiate,j,k) = BOOM_A_ALT(spar connection point 3's x-coordiate,j,k) + kt * spars.height(1)/6 * (2 + sigma_z.alt(spar connection point 2's x-coordinate,j,k)/sigma_z.alt(spar connection point 3's x-coordinate,j,k));
-
-BOOM_A_ALT(spar connection point 4's x-coordiate,j,k) = BOOM_A_ALT(spar connection point 4's x-coordiate,j,k) + kt * spars.height(1)/6 * (2 + sigma_z.alt(spar connection point 1's x-coordinate,j,k)/sigma_z.alt(spar connection point 4's x-coordinate,j,k));
-
+    end
     end
 end
 
