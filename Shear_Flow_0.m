@@ -72,29 +72,9 @@
 % % please verify your results in 4 ways (see instructions)
 % % shear stress tau
 % % please calculate the shear stress from the shear flow
-x = zeros(1,length(airfoil.booms));
-y = zeros(1,length(airfoil.booms));
-delta_A = zeros(1,length(airfoil.booms));
-delta_Term_2_alt = zeros(length(x),length(z),5);
-delta_Term_2_sea = zeros(length(x),length(z),5);
-Term_2_alt = zeros(length(z),5);
-Term_2_sea = zeros(length(z),5);
-
-for i = 1:length(airfoil.booms)
-    x(i) = airfoil.booms(i).x_coordinate;                %%
-    y(i) = airfoil.booms(i).y_coordinate;
-end
 
 
-for k = 1:5
-    for j = 1:length(z)
-        for i = 1:length(x)-1 % for x points there will be x flows, but the first is cut
-            delta_A(i) = abs(x(i+1)*y(i) - y(i+1)*x(i))/2;
-            delta_Term_2_alt(i,j,k) = 2*delta_A(i)*qb_alt(i,j,k);
-            delta_Term_2_sea(i,j,k) = 2*delta_A(i)*qb_sea(i,j,k);           
-        end
-        Term_2_alt(j,k) = sum(delta_Term_2_alt);
-        Term_2_sea(j,k) = sum(delta_Term_2_sea);
-        
-    end
-end
+
+%% Find area of each section
+
+

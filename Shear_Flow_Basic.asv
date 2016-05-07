@@ -12,9 +12,6 @@ for i = 1:length(airfoil.booms)
     y(i) = airfoil.booms(i).y_coordinate;
 end
 
-qb_sea = zeros(length(x),length(z),5);
-qb_alt = zeros(length(x),length(z),5);
-
 %% Find incremental and total area
 for i = 1:length(x)-1
     delta_A(i) = abs(x(i+1)*y(i) - y(i+1)*x(i))/2;
