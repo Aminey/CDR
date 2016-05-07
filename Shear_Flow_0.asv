@@ -30,7 +30,9 @@
 % 
 % qb2 = [qb(1:i_A1(1)-1),qb(i_A1(2):end)];
 % L_boom2 = [L_boom(1:i_A1(1)-1),L_boom(i_A1(2):end)];
+
 % % modify distance between booms at the rear spar to compensate the change of the thickness
+
 % L_boom2(end) = L_boom2(end)*t_skin/t_spar; 
 % L2sum = sum(L_boom2);
 % 
@@ -65,18 +67,30 @@
 %     k = i + i_A1(1) - 1;
 %     q(j) = qb2(k) + q02;
 % end
-% 
-% %
 % % please calculate the shear flow in the central spar here
-% %
-% 
 % % verification:
-% %
 % % please verify your results in 4 ways (see instructions)
-% %
-% 
-% 
 % % shear stress tau
-% %
 % % please calculate the shear stress from the shear flow
+x = zeros(1,length(airfoil.booms));
+y = zeros(1,length(airfoil.booms));
+delta_A = zeros(1,length(airfoil.booms));
+delta_Term_2_alt = zeros(length(x),length(z),5);
+delta_Term_2_sea = zeros(length(x),length(z),5);
+Term_2_alt = zeros(length)
 
+for i = 1:length(airfoil.booms)
+    x(i) = airfoil.booms(i).x_coordinate;                %%
+    y(i) = airfoil.booms(i).y_coordinate;
+end
+
+
+for k = 1:5
+    for j = 1:length(z)
+        for i = 2:length(x)-1 % for x points there will be x flows, but the first is cut
+            delta_A(i) = abs(x(i+1)*y(i) - y(i+1)*x(i))/2;
+            delta_Term_2_alt(i,j,k) = 2*delta_A(i)*qb_alt(i,j,k);
+        end
+        Term_2_alt(j,k) = sum(delta_Term_2_alt);
+    end
+end
