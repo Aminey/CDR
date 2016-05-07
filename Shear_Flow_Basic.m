@@ -52,8 +52,8 @@ for k = 1:5
             delta_Term_2_alt(i,j,k) = 2*delta_A(i)*qb_alt(i,j,k);
             delta_Term_2_sea(i,j,k) = 2*delta_A(i)*qb_sea(i,j,k);           
         end
-        Term_2_alt(j,k) = sum(delta_Term_2_alt(1:length(x)-1,j,k));
-        Term_2_sea(j,k) = sum(delta_Term_2_sea(1:length(x)-1,j,k));
+        Term_2_alt(j,k) = sum(delta_Term_2_alt(:,j,k));
+        Term_2_sea(j,k) = sum(delta_Term_2_sea(:,j,k));
        
     end
 end
