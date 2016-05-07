@@ -10,7 +10,6 @@ for i = 1:length(airfoil.booms)
     y(i) = airfoil.booms(i).y_coordinate;
 end
 
-
 BOOM_A_ALT = zeros(length(x),length(z),5);
 BOOM_A_SEA = zeros(length(x),length(z),5);
 

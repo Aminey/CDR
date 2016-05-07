@@ -20,7 +20,7 @@ for i = 1:length(x)-1
     delta_A(i) = abs(x(i+1)*y(i) - y(i+1)*x(i))/2;
 end
 
-A = sum(delta_A);
+A_total = sum(delta_A);
 
 %% BASIC SHEAR FLOW
 for k = 1:5

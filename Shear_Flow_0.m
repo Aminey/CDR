@@ -76,7 +76,7 @@
 %% Find area of each section
 i_A1 = find(ismember(x,spars.x(1)));        % i don't think this is right.... need to fiddle with it.
 A1 = sum(delta_A(i_A1(1):i_A1(2)));
-A2 = A - A1;
+A2 = A_total - A1;
 
 
 % % separate cell 1 and cell 2 
