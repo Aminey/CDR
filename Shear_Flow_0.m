@@ -5,9 +5,7 @@
 % y_boom = [fliplr(yU(i_BU(:))),yL(i_BL(2:end))];
 % L_boom = [fliplr(L_boomU),L_boomL,h_spar(2)];
 % 
-
-% 
-% % calculate area of triangle formed by two nodes on the airfoil profile and point(x_spar(1),0)
+% %% calculate area of triangle formed by two nodes on the airfoil profile and point(x_spar(1),0)
 % nq = length(L_boom);
 % A = zeros(1,nq);
 % for i = 1:nq-1
@@ -16,7 +14,7 @@
 % A(end) = abs(x_boom(end)*(y_boom(1)-0) + x_boom(1)*(0-y_boom(end)) + x_spar(1)*(y_boom(end)-y_boom(1)))/2;
 % Asum = sum(A);
 % 
-% % calculate the area of each cell
+% %% calculate the area of each cell
 % i_A1 = find(ismember(x_boom,x_spar(1)));
 % A1 = A(i_A1(1):i_A1(2)-1);
 % A1sum = sum(A1);
@@ -76,5 +74,15 @@
 
 
 %% Find area of each section
+i_A1 = find(ismember(x,spars.x(1)));        % i don't think this is right.... need to fiddle with it.
+A1 = sum(delta_A(i_A1(1):i_A1(2)));
+A2 = A - A1;
 
 
+% % separate cell 1 and cell 2 
+% qb1 = qb(i_A1(1):i_A1(2)-1);
+% L_boom1 = L_boom(i_A1(1):i_A1(2)-1);
+% L1sum = sum(L_boom1);
+% 
+% qb2 = [qb(1:i_A1(1)-1),qb(i_A1(2):end)];
+% L_boom2 = [L_boom(1:i_A1(1)-1),L_boom(i_A1(2):end)];

@@ -37,11 +37,11 @@ for k = 1:5
                                          *BOOM_A_ALT(i,j,k)*x(i)) - (((Sy.alt(j,k)*structure.inertias(2) -...
                                          Sx.alt(j,k)*structure.inertias(3))/(structure.inertias(1)*structure.inertias(2)...
                                          -structure.inertias(3)))*BOOM_A_ALT(i,j,k)*y(i));
-             delta_Term_2_alt(i,j,k) = 2*delta_A(i)*qb_alt(i,j,k);
+            delta_Term_2_alt(i,j,k) = 2*delta_A(i)*qb_alt(i,j,k);
             delta_Term_2_sea(i,j,k) = 2*delta_A(i)*qb_sea(i,j,k);           
         end
-        Term_2_alt(j,k) = sum(delta_Term_2_alt);
-        Term_2_sea(j,k) = sum(delta_Term_2_sea);
+        Term_2_alt(j,k) = sum(delta_Term_2_alt(1:length(x)-1,j,k));
+        Term_2_sea(j,k) = sum(delta_Term_2_sea(1:length(x)-1,j,k));
        
     end
 end
