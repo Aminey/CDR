@@ -179,3 +179,8 @@ Ixy = 0;
 % You need to update x, yU, yL, x_skinU, x_skinL, x_spar, x_strU, x_strL
 %
 %
+
+
+
+
+
