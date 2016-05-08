@@ -85,5 +85,5 @@ wing = build_wing(c,structure,theta); % Build wing
 [Sx, Sy, Mx, My, sigma_z] = SMsigma_plots(alpha, z, structure, L_distribution, D_distribution);
 [u, v] = uv_plots(z, structure, My, Mx);
 [Booms] = Booms(airfoil,z,sigma_z);%% incomplete
-[Term_2] = Shear_Flow_Basic(airfoil,z,structure,booms,Sx,Sy);%% incomplete
+[Term_2] = Shear_Flow_Basic(airfoil,z,structure,booms,Sx,Sy,A_total);%% incomplete
 

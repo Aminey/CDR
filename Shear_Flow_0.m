@@ -13,13 +13,7 @@
 % end
 % A(end) = abs(x_boom(end)*(y_boom(1)-0) + x_boom(1)*(0-y_boom(end)) + x_spar(1)*(y_boom(end)-y_boom(1)))/2;
 % Asum = sum(A);
-% 
-% %% calculate the area of each cell
-% i_A1 = find(ismember(x_boom,x_spar(1)));
-% A1 = A(i_A1(1):i_A1(2)-1);
-% A1sum = sum(A1);
-% A2sum = Asum - A1sum;
-% 
+
 
 % % separate cell 1 and cell 2 
 % qb1 = qb(i_A1(1):i_A1(2)-1);
@@ -71,18 +65,17 @@
 % % shear stress tau
 % % please calculate the shear stress from the shear flow
 
-
+%% Initialize
+x = zeros(1,length(airfoil.booms));
+y = zeros(1,length(airfoil.booms));
 
 %% Find area of each section
 i_A1 = find(ismember(x,spars.x(1)));        % i don't think this is right.... need to fiddle with it.
 A1 = sum(delta_A(i_A1(1):i_A1(2)));
 A2 = A_total - A1;
 
+syms q01 q02
 
-% % separate cell 1 and cell 2 
-% qb1 = qb(i_A1(1):i_A1(2)-1);
-% L_boom1 = L_boom(i_A1(1):i_A1(2)-1);
-% L1sum = sum(L_boom1);
-% 
-% qb2 = [qb(1:i_A1(1)-1),qb(i_A1(2):end)];
-% L_boom2 = [L_boom(1:i_A1(1)-1),L_boom(i_A1(2):end)];
+M_0.sea + Sy.sea*(x_quarterchord) - Sx.sea*(0) = 2*A1*q01.sea + 2*A2*q02.sea + Term_2.sea;
+M_0.alt + Sy.alt*(x_quarterchord) - Sx.alt*(0) = 2*A1*q01.alt + 2*A2*q02.alt + Term_2.alt;
+
