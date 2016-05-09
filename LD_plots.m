@@ -71,19 +71,19 @@ for i = 1:5
     L_distribution.alt(1:length(z),i) = (L_alt(i)/b + 4*L_alt(i)/(pi*b)*sqrt(1-(2*z/b).^2))/2;
 end
 
-CL_seat(4) = -1.76*W/(0.5*rho_sea*v_sea(i)^2*S);
-CL_seat(5) = -1*W/(0.5*rho_sea*v_sea(i)^2*S);
-alpha_sea(4) = ((CL_seat(4)-C_L0_sea)/C_La_sea)*180/pi - atand(15.24/63.9); %degrees
-alpha_sea(5) = ((CL_seat(5)-C_L0_sea)/C_La_sea)*180/pi - atand(15.24/63.9); %degrees
-alpha_sea(4) = alpha_sea(4) - atand(15.24/63.9);
-alpha_sea(5) = alpha_sea(5) - atand(7.62/95.8);
-
-CL_altt(4) = -1.76*W/(0.5*rho_alt*v_alt(i)^2*S);
-CL_altt(5) = -1*W/(0.5*rho_alt*v_alt(i)^2*S);
-alpha_alt(4) = ((CL_altt(4)-C_L0_alt)/C_La_alt)*180/pi - atand(15.24/63.9); %degrees
-alpha_alt(5) = ((CL_altt(5)-C_L0_alt)/C_La_alt)*180/pi - atand(15.24/63.9); %degrees
-alpha_alt(4) = alpha_alt(4) - atand(15.24/63.9);
-alpha_alt(5) = alpha_alt(5) - atand(7.62/95.8);
+% CL_seat(4) = -1.76*W/(0.5*rho_sea*v_sea(i)^2*S);
+% CL_seat(5) = -1*W/(0.5*rho_sea*v_sea(i)^2*S);
+% alpha_sea(4) = ((CL_seat(4)-C_L0_sea)/C_La_sea)*180/pi - atand(15.24/63.9); %degrees
+% alpha_sea(5) = ((CL_seat(5)-C_L0_sea)/C_La_sea)*180/pi - atand(15.24/63.9); %degrees
+% alpha_sea(4) = alpha_sea(4) - atand(15.24/63.9);
+% alpha_sea(5) = alpha_sea(5) - atand(7.62/95.8);
+% 
+% CL_altt(4) = -1.76*W/(0.5*rho_alt*v_alt(i)^2*S);
+% CL_altt(5) = -1*W/(0.5*rho_alt*v_alt(i)^2*S);
+% alpha_alt(4) = ((CL_altt(4)-C_L0_alt)/C_La_alt)*180/pi - atand(15.24/63.9); %degrees
+% alpha_alt(5) = ((CL_altt(5)-C_L0_alt)/C_La_alt)*180/pi - atand(15.24/63.9); %degrees
+% alpha_alt(4) = alpha_alt(4) - atand(15.24/63.9);
+% alpha_alt(5) = alpha_alt(5) - atand(7.62/95.8);
 
 %% Plots figure 1 to 8
 figure; 

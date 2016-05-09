@@ -54,19 +54,22 @@ v_alt = [75.9 95.8 51.3 63.9 95.83];
 
 i = 1; %select condition
 
-CL_seat(4) = -1.76*W/(0.5*rho_sea*v_sea(i)^2*S);
-CL_seat(5) = -1*W/(0.5*rho_sea*v_sea(i)^2*S);
-alpha.sea(4) = ((CL_seat(4)-C_L0_sea)/C_La_sea)*180/pi - atand(15.24/63.9); %degrees
-alpha.sea(5) = ((CL_seat(5)-C_L0_sea)/C_La_sea)*180/pi - atand(15.24/63.9); %degrees
-alpha.sea(4) = alpha.sea(4) - atand(15.24/63.9);
-alpha.sea(5) = alpha.sea(5) - atand(7.62/95.8);
+% CL_seat(4) = -1.76*W/(0.5*rho_sea*v_sea(i)^2*S);
+% CL_seat(5) = -1*W/(0.5*rho_sea*v_sea(i)^2*S);
+% alpha.sea(4) = ((CL_seat(4)-C_L0_sea)/C_La_sea)*180/pi - atand(15.24/63.9); %degrees
+% alpha.sea(5) = ((CL_seat(5)-C_L0_sea)/C_La_sea)*180/pi - atand(15.24/63.9); %degrees
+% alpha.sea(4) = alpha.sea(4) - atand(15.24/63.9);
+% alpha.sea(5) = alpha.sea(5) - atand(7.62/95.8);
+% 
+% CL_altt(4) = -1.76*W/(0.5*rho_alt*v_alt(i)^2*S);
+% CL_altt(5) = -1*W/(0.5*rho_alt*v_alt(i)^2*S);
+% alpha.alt(4) = ((CL_altt(4)-C_L0_alt)/C_La_alt)*180/pi - atand(15.24/63.9); %degrees
+% alpha.alt(5) = ((CL_altt(5)-C_L0_alt)/C_La_alt)*180/pi - atand(15.24/63.9); %degrees
+% alpha.alt(4) = alpha.alt(4) - atand(15.24/63.9);
+% alpha.alt(5) = alpha.alt(5) - atand(7.62/95.8);
 
-CL_altt(4) = -1.76*W/(0.5*rho_alt*v_alt(i)^2*S);
-CL_altt(5) = -1*W/(0.5*rho_alt*v_alt(i)^2*S);
-alpha.alt(4) = ((CL_altt(4)-C_L0_alt)/C_La_alt)*180/pi - atand(15.24/63.9); %degrees
-alpha.alt(5) = ((CL_altt(5)-C_L0_alt)/C_La_alt)*180/pi - atand(15.24/63.9); %degrees
-alpha.alt(4) = alpha.alt(4) - atand(15.24/63.9);
-alpha.alt(5) = alpha.alt(5) - atand(7.62/95.8);
+alpha.sea = [13.9052701333745,4.10748947715895,-16.4576568720170,-31.4285542138703,-21.4882002727429]; %degrees
+alpha.alt = [13.4258359283956,7.63933446931109,-15.7259634258954,-32.8453936499525,-22.2947607913865]; %degrees
 
 %% Structural Elements and Parameters
 %box beam parameters

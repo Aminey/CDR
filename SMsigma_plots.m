@@ -51,25 +51,25 @@ figure;
 plot(z,wx_sea);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
-ylabel('Wx Force at Sea Level (N/m)');
+ylabel('W_x Force at Sea Level (N/m)');
 
 figure; 
 plot(z,wy_sea);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
-ylabel('Wy Force at Sea Level (N/m)');
+ylabel('W_y Force at Sea Level (N/m)');
 
 figure; 
 plot(z,wx_alt);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
-ylabel('Force (N/m)');
+ylabel('W_x Force at Service Ceiling (N/m)');
 
 figure; 
 plot(z,wy_alt);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
-ylabel('Force (N/m)');
+ylabel('W_y Force at Service Ceiling (N/m)');
 
 for i = 1:5;
     for j = length(z):-1:2;
