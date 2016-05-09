@@ -108,5 +108,24 @@ dtheta_dz.sea = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.sea-q02.sea)*(y_bot
 dtheta_dz.alt = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.alt-q02.alt)*(y_bot - y_top)/spar.thickness + ((Sy.alt*Ixy - Sx.alt*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.alt) + ((Sx.alt*Ixy-Sy.alt*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.alt));
 
 % dtheta_dz 2
+delta_term_b1(i) = zeros(1,length(x)); %% this is wrong. doesnt go from 1 to length(x). goes over top and bottom
+delta_term_b2.sea(i) = zeros(1,length(x));
+delta_term_b2.alt(i) = zeros(1,length(x));
+delta_term_b3.sea(i) = zeros(1,length(x));
+delta_term_b3.alt(i) = zeros(1,length(x));
 
+for i = 1:length(x)-1 % "Sum CCW over front section" also wrong...
+    delta_term_b1(i) = (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.thickness;
+    delta_term_b2.sea(i) = Booms.sea * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness(i);
+    delta_term_b2.alt(i) = Booms.alt * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness_1;
+    delta_term_b3.sea(i) = Booms.sea * y(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness(i);
+    delta_term_b3.alt(i) = Booms.alt * y(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness_1;
+end
+sum_term_b1 = sum(delta_term_b1(:));
+sum_term_b2.sea = sum(delta_term_b2.sea(:));
+sum_term_b2.alt = sum(delta_term_b2.alt(:));
+sum_term_b3.sea = sum(delta_term_b3.sea(:));
+sum_term_b3.alt = sum(delta_term_b3.alt(:));
 
+dtheta_dz.sea =
+dtheta_dz.alt =
