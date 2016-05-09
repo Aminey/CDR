@@ -85,27 +85,28 @@ for k = 1:5
 end
 %% EQ 2
 % dtheta_dz_1
-delta_term_1(i) = zeros(1,length(x)); %% this is wrong. doesnt go from 1 to length(x). goes over front section
-delta_term_2.sea(i) = zeros(1,length(x));
-delta_term_2.alt(i) = zeros(1,length(x));
-delta_term_3.sea(i) = zeros(1,length(x));
-delta_term_3.alt(i) = zeros(1,length(x));
+delta_term_a1(i) = zeros(1,length(x)); %% this is wrong. doesnt go from 1 to length(x). goes over front section
+delta_term_a2.sea(i) = zeros(1,length(x));
+delta_term_a2.alt(i) = zeros(1,length(x));
+delta_term_a3.sea(i) = zeros(1,length(x));
+delta_term_a3.alt(i) = zeros(1,length(x));
 
-for i = 1:length(x)-1 % "Sum CCW over front section"
-    delta_term_1(i) = (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.thickness;
-    delta_term_2.sea(i) = Booms.sea * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness(i);
-    delta_term_2.alt(i) = Booms.alt * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness_1;
-    delta_term_3.sea(i) = Booms.sea * y(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness(i);
-    delta_term_3.alt(i) = Booms.alt * y(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness_1;
-
+for i = 1:length(x)-1 % "Sum CCW over front section" also wrong...
+    delta_term_a1(i) = (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.thickness;
+    delta_term_a2.sea(i) = Booms.sea * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness(i);
+    delta_term_a2.alt(i) = Booms.alt * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness_1;
+    delta_term_a3.sea(i) = Booms.sea * y(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness(i);
+    delta_term_a3.alt(i) = Booms.alt * y(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness_1;
 end
-sum_term_1 = sum(delta_term_1(:));
-sum_term_2.sea = sum(delta_term_2.sea(:));
-sum_term_2.alt = sum(delta_term_2.alt(:));
-sum_term_3.sea = sum(delta_term_3.sea(:));
-sum_term_3.alt = sum(delta_term_3.alt(:));
+sum_term_a1 = sum(delta_term_a1(:));
+sum_term_a2.sea = sum(delta_term_a2.sea(:));
+sum_term_a2.alt = sum(delta_term_a2.alt(:));
+sum_term_a3.sea = sum(delta_term_a3.sea(:));
+sum_term_a3.alt = sum(delta_term_a3.alt(:));
+
+dtheta_dz.sea = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.sea-q02.sea)*(y_bot - y_top)/spar.thickness + ((Sy.sea*Ixy - Sx.sea*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.sea) + ((Sx.sea*Ixy-Sy.sea*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.sea));
+dtheta_dz.alt = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.alt-q02.alt)*(y_bot - y_top)/spar.thickness + ((Sy.alt*Ixy - Sx.alt*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.alt) + ((Sx.alt*Ixy-Sy.alt*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.alt));
+
+% dtheta_dz 2
 
 
-
-dtheta_dz.sea = (1/(2*A1*G)) * (q01.sea*(sum_term_1) + (q01.sea-q02.sea)*(y_bot - y_top)/spar.thickness + ((Sy.sea*Ixy - Sx.sea*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_2.sea) + ((Sx.sea*Ixy-Sy.sea*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_3.sea));
-dtheta_dz.alt = (1/(2*A1*G)) * (q01.sea*(sum_term_1) + (q01.alt-q02.alt)*(y_bot - y_top)/spar.thickness + ((Sy.alt*Ixy - Sx.alt*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_2.alt) + ((Sx.alt*Ixy-Sy.alt*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_3.alt));
