@@ -1,15 +1,17 @@
 function [] = Shear_Flow_0()
 %% Initialize
 
+q01.alt = zeros(length(z), 5);
+q01.sea = zeros(length(z), 5);
+q02.alt = zeros(length(z), 5);
+q02.sea = zeros(length(z), 5);
 
 
 %% Find area of each section
 i_A1 = find(ismember(x,spars.x(1)));        % i don't think this is right.... need to fiddle with it.
 A1 = sum(delta_A(i_A1(1):i_A1(2)));
 A2 = A_total - A1;
-%%
-syms q01.sea(j,k) q02.sea(j,k)
-syms q01.alt(j,k) q02.alt(j,k)
+
 %% EQ 1
 for k = 1:5
     for j = 1:length(z)
@@ -48,7 +50,7 @@ delta_term_b2.alt = zeros(1,length(x));
 delta_term_b3.sea = zeros(1,length(x));
 delta_term_b3.alt = zeros(1,length(x));
 
-for i = 1:length(x)-1 % "Sum CCW over front section" also wrong...
+for i = 1:length(x)-1 % "Sum CCW over top and bottom" also wrong...
     delta_term_b1(i) = (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.thickness;
     delta_term_b2.sea(i) = Booms.sea * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness(i);
     delta_term_b2.alt(i) = Booms.alt * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness_1;

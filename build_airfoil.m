@@ -1,8 +1,6 @@
-% function [Ixx, Iyy, Ixy, skin, spar, str, caps] = build_airfoil()
+function [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps] = build_airfoil()
 %% airfoil section profile
 % NACA 2415
-close all; clc; clear all;
-
 %% 2415 Airfoil 
 m = 0.02;               % 
 p = 0.4;                % max camber
