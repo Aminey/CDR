@@ -12,15 +12,6 @@ i_A1 = find(ismember(x,spars.x(1)));        % i don't think this is right.... ne
 A1 = sum(delta_A(i_A1(1):i_A1(2)));
 A2 = A_total - A1;
 
-%% Separate front and rear cell
-toggle = 1;
-for i = 1:length(x)
-    if toggle == 1
-        if ismember(x(i),spar.
-        
-    end
-end
-
 %% EQ 1
 for k = 1:5
     for j = 1:length(z)
@@ -30,13 +21,14 @@ for k = 1:5
 end
 %% EQ 2
 % dtheta_dz_1
-delta_term_a1 = zeros(1,length(x)); %% this is wrong. doesnt go from 1 to length(x). goes over front section
+delta_term_a1 = zeros(1,length(x));
 delta_term_a2.sea = zeros(1,length(x));
 delta_term_a2.alt = zeros(1,length(x));
 delta_term_a3.sea = zeros(1,length(x));
 delta_term_a3.alt = zeros(1,length(x));
 
-for i = 1:length(x)-1 % "Sum CCW over front section" also wrong...
+for i = spar.i(2):spar.i(3) % check
+    j = 1;
     delta_term_a1(i) = (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.thickness;
     delta_term_a2.sea(i) = Booms.sea * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness(i);
     delta_term_a2.alt(i) = Booms.alt * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness_1;
@@ -83,6 +75,12 @@ eq2.alt = dtheta_dz_2.alt - dtheta_dz_1.alt;
 [q01.sea,q02.sea] = solve(eq1.sea==0,eq2.sea==0);
 [q01.alt,q02.alt] = solve(eq1.alt==0,eq2.alt==0);
 
+qtot.sea = zeros(1,length(x)+1);           % the +1 is for the spar
+qtot.alt = zeros(1,length(x)+1);
+
+for i = 1:
+
+end
 % % shear flow along airfoil contour from top right corner to top right corner CCW 
 % q = zeros(1,nq);   
 % for i = 1:i_A1(1)-1
