@@ -21,18 +21,20 @@ for k = 1:5
 end
 %% EQ 2
 % dtheta_dz_1
-delta_term_a1 = zeros(1,length(x)); %% this is wrong. doesnt go from 1 to length(x). goes over front section
+delta_term_a1 = zeros(1,length(x));
 delta_term_a2.sea = zeros(1,length(x));
 delta_term_a2.alt = zeros(1,length(x));
 delta_term_a3.sea = zeros(1,length(x));
 delta_term_a3.alt = zeros(1,length(x));
 
-for i = 1:length(x)-1 % "Sum CCW over front section" also wrong...
-    delta_term_a1(i) = (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.thickness;
-    delta_term_a2.sea(i) = Booms.sea * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness(i);
-    delta_term_a2.alt(i) = Booms.alt * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness_1;
-    delta_term_a3.sea(i) = Booms.sea * y(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness(i);
-    delta_term_a3.alt(i) = Booms.alt * y(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness_1;
+for i = spar.i(2):spar.i(3) % check
+    j = 1;
+    delta_term_a1(j) = (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.thickness;
+    delta_term_a2.sea(j) = Booms.sea * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness(i);
+    delta_term_a2.alt(j) = Booms.alt * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness_1;
+    delta_term_a3.sea(j) = Booms.sea * y(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness(i);
+    delta_term_a3.alt(j) = Booms.alt * y(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/thickness_1;
+    j = j+1;
 end
 sum_term_a1 = sum(delta_term_a1(:));
 sum_term_a2.sea = sum(delta_term_a2.sea(:));
@@ -44,7 +46,7 @@ dtheta_dz_1.sea = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.sea-q02.sea)*(y_b
 dtheta_dz_1.alt = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.alt-q02.alt)*(y_bot - y_top)/spar.thickness + ((Sy.alt*Ixy - Sx.alt*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.alt) + ((Sx.alt*Ixy-Sy.alt*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.alt));
 
 % dtheta_dz 2
-delta_term_b1 = zeros(1,length(x)); %% this is wrong. doesnt go from 1 to length(x). goes over top and bottom
+delta_term_b1 = zeros(1,length(x));
 delta_term_b2.sea = zeros(1,length(x));
 delta_term_b2.alt = zeros(1,length(x));
 delta_term_b3.sea = zeros(1,length(x));
@@ -74,6 +76,12 @@ eq2.alt = dtheta_dz_2.alt - dtheta_dz_1.alt;
 [q01.sea,q02.sea] = solve(eq1.sea==0,eq2.sea==0);
 [q01.alt,q02.alt] = solve(eq1.alt==0,eq2.alt==0);
 
+qtot.sea = zeros(1,length(x)+1);           % the +1 is for the spar
+qtot.alt = zeros(1,length(x)+1);
+
+for i = 1:
+
+end
 % % shear flow along airfoil contour from top right corner to top right corner CCW 
 % q = zeros(1,nq);   
 % for i = 1:i_A1(1)-1

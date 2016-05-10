@@ -60,8 +60,8 @@ for k = 1:5
     m = 1;
     spar_holder = zeros(1,4);  
     
-    for i = 1:length(x_CCW)
-        if airfoil.booms(i).isSpars
+    for i = 1:length(x)
+        if ismember(x(i),spar.x) %%change!
            spar_holder(m) = i;
            m = m+1;
         end
