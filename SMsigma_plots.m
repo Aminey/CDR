@@ -150,25 +150,21 @@ ylabel('Moment My at Altitude (N*m)');
 
 
 %% Sigma Z's
-x = zeros(1,length(airfoil.booms));
-y = zeros(1,length(airfoil.booms));
+x = zeros(1,length(x_CCW));
+y = zeros(1,length(y_CCW));
 
-for i = 1:length(airfoil.booms)
-    x(i) = airfoil.booms(i).x_coordinate;                %%
-    y(i) = airfoil.booms(i).y_coordinate;
+for i = 1:length(x_CCW)
+    x(i) = x_CCW(i);                
+    y(i) = y_CCW(i);
 end
 
 for k = 1:5
     for j = 1:length(z) 
         for i = 1:length(x)
-            sigma_z.alt(i,j,k) = Mx.alt(j,k)*(structure.inertias(2)*y(i) - structure.inertias(3)*x(i))/...
-                              (structure.inertias(1)*structure.inertias(2) - structure.inertias(3)^2) + My.alt(j,k)*...
-                              (structure.inertias(1)*x(i) - structure.inertias(3)*y(i))/...
-                              (structure.inertias(1)*structure.inertias(2) - structure.inertias(3)^2);
-            sigma_z.sea(i,j,k) = Mx.sea(j,k)*(structure.inertias(2)*y(i) - structure.inertias(3)*x(i))/...
-                              (structure.inertias(1)*structure.inertias(2) - structure.inertias(3)^2) + My.sea(j,k)*...
-                              (structure.inertias(1)*x(i) - structure.inertias(3)*y(i))/...
-                              (structure.inertias(1)*structure.inertias(2) - structure.inertias(3)^2);    
+            sigma_z.alt(i,j,k) = Mx.alt(j,k)*(Iyy*y(i) - Ixy*x(i))/(Ixx*Iyy - Ixy^2) + ...
+                                 My.alt(j,k)*(Ixx*x(i) - Ixy*y(i))/(Ixx*Iyy - Ixy^2);
+            sigma_z.sea(i,j,k) = Mx.sea(j,k)*(Iyy*y(i) - Ixy*x(i))/(Ixx*Iyy - Ixy^2) + ...
+                                 My.sea(j,k)*(Ixx*x(i) - Ixy*y(i))/(Ixx*Iyy - Ixy^2);
         end
     end    
 end

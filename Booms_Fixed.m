@@ -2,12 +2,12 @@
 
 % need all x-values used to plot airfoil. need stringer area, spar cap area,
 % and stringer, spar, and spar cap x-locations
-x = zeros(1,length(airfoil.booms));
-y = zeros(1,length(airfoil.booms));
+x = zeros(1,length(x_CCW));
+y = zeros(1,length(y_CCW));
 
-for i = 1:length(airfoil.booms)
-    x(i) = airfoil.booms(i).x_coordinate;                %%
-    y(i) = airfoil.booms(i).y_coordinate;
+for i = 1:length(x_CCW)
+    x(i) = x_CCW(i);                %%
+    y(i) = y_CCW(i);
 end
 
 Booms.alt = zeros(length(x),length(z),5);
@@ -19,9 +19,9 @@ for k = 1:5
             dist_rear = ((x(i)+x(i-1))^2 + (y(i)+y(i-1))^2)^0.5;
             dist_fore = ((x(i)+x(i+1))^2 + (y(i)+y(i+1))^2)^0.5;
             if airfoil.booms(i).isStringer
-                area_term = stringers.area;
+                area_term = str.A;
             elseif airfoil.booms(i).isCap
-                area_term = caps.area;
+                area_term = caps.A;
             else
                 area_term = 0;
             end
@@ -56,12 +56,12 @@ for k = 1:5
 
 %% Stringers on first and last coordinates?
         if airfoil.booms(1).isStringer
-           Booms.alt(1,j,k) = Booms.alt(1,j,k) + stringers.area; 
-           Booms.sea(1,j,k) = Booms.sea(1,j,k) + stringers.area;
+           Booms.alt(1,j,k) = Booms.alt(1,j,k) + str.A; 
+           Booms.sea(1,j,k) = Booms.sea(1,j,k) + str.A;
         end
         if airfoil.booms(end).isStringer
-           Booms.alt(end,j,k) = Booms.alt(end,j,k) + stringers.area; 
-           Booms.sea(end,j,k) = Booms.sea(end,j,k) + stringers.area;
+           Booms.alt(end,j,k) = Booms.alt(end,j,k) + str.A; 
+           Booms.sea(end,j,k) = Booms.sea(end,j,k) + str.A;
         end
        
 
@@ -70,9 +70,10 @@ for k = 1:5
     m = 1;
     spar_holder = zeros(1,4);  
     
-    for i = 1:length(airfoil.booms)
+    for i = 1:length(x_CCW)
         if airfoil.booms(i).isSpars
            spar_holder(m) = i;
+           m = m+1;
         end
     end
     

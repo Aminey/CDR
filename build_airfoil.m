@@ -1,4 +1,4 @@
-% function [c,Ixx,Iyy,Ixy,x,yU,yL,x_strU,x_strL,x_skinU,x_skinL,L_skinU,L_skinL,x_spar,h_spar,i_spar,dx] = airfoil_section(A_cap,A_str,t_spar,t_skin,x_spar,x_strU,x_strL)
+% function [Ixx, Iyy, Ixy, skin, spar, str, caps] = build_airfoil()
 %% airfoil section profile
 % NACA 2415
 close all; clc; clear all;

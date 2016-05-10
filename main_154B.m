@@ -80,13 +80,15 @@ structure.bl = 0.012;                 % m   bracket height
 structure.bt = 0.0025;                % m   bracket thickness`
 structure.E  = 70E9;                  % Pa  Young's Modulus
 
-wing = build_wing(c,structure,theta); % Build wing
-[wing_section_centroid, structure, component_moments] = calculate_geometry(wing,c,structure,theta);
+%wing = build_wing(c,structure,theta); % Build wing
+%[wing_section_centroid, structure, component_moments] = calculate_geometry(wing,c,structure,theta);
 
 %% Functions
+[Ixx, Iyy, Ixy, skin, spar, str, caps] = build_airfoil();
 [L_distribution, D_distribution] = LD_plots();
 [Sx, Sy, Mx, My, sigma_z] = SMsigma_plots(alpha, z, structure, L_distribution, D_distribution);
 [u, v] = uv_plots(z, structure, My, Mx);
-[Booms] = Booms(airfoil,z,sigma_z);%% incomplete
-[Term_2] = Shear_Flow_Basic(airfoil,z,structure,booms,Sx,Sy,A_total);%% incomplete
+[Booms] = Booms(airfoil,z,sigma_z);%% incomplete inputs
+[Term_2] = Shear_Flow_Basic(airfoil,z,structure,booms,Sx,Sy,A_total);%% incomplete inputs
+[Term_1] = Shear_Flow_0();%% incomplete inputs
 
