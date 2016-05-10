@@ -8,8 +8,8 @@ i_A1 = find(ismember(x,spars.x(1)));        % i don't think this is right.... ne
 A1 = sum(delta_A(i_A1(1):i_A1(2)));
 A2 = A_total - A1;
 %%
-syms q01.sea q02.sea
-syms q01.alt q02.alt
+syms q01.sea(j,k) q02.sea(j,k)
+syms q01.alt(j,k) q02.alt(j,k)
 %% EQ 1
 for k = 1:5
     for j = 1:length(z)
@@ -19,11 +19,11 @@ for k = 1:5
 end
 %% EQ 2
 % dtheta_dz_1
-delta_term_a1(i) = zeros(1,length(x)); %% this is wrong. doesnt go from 1 to length(x). goes over front section
-delta_term_a2.sea(i) = zeros(1,length(x));
-delta_term_a2.alt(i) = zeros(1,length(x));
-delta_term_a3.sea(i) = zeros(1,length(x));
-delta_term_a3.alt(i) = zeros(1,length(x));
+delta_term_a1 = zeros(1,length(x)); %% this is wrong. doesnt go from 1 to length(x). goes over front section
+delta_term_a2.sea = zeros(1,length(x));
+delta_term_a2.alt = zeros(1,length(x));
+delta_term_a3.sea = zeros(1,length(x));
+delta_term_a3.alt = zeros(1,length(x));
 
 for i = 1:length(x)-1 % "Sum CCW over front section" also wrong...
     delta_term_a1(i) = (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.thickness;
@@ -42,11 +42,11 @@ dtheta_dz_1.sea = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.sea-q02.sea)*(y_b
 dtheta_dz_1.alt = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.alt-q02.alt)*(y_bot - y_top)/spar.thickness + ((Sy.alt*Ixy - Sx.alt*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.alt) + ((Sx.alt*Ixy-Sy.alt*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.alt));
 
 % dtheta_dz 2
-delta_term_b1(i) = zeros(1,length(x)); %% this is wrong. doesnt go from 1 to length(x). goes over top and bottom
-delta_term_b2.sea(i) = zeros(1,length(x));
-delta_term_b2.alt(i) = zeros(1,length(x));
-delta_term_b3.sea(i) = zeros(1,length(x));
-delta_term_b3.alt(i) = zeros(1,length(x));
+delta_term_b1 = zeros(1,length(x)); %% this is wrong. doesnt go from 1 to length(x). goes over top and bottom
+delta_term_b2.sea = zeros(1,length(x));
+delta_term_b2.alt = zeros(1,length(x));
+delta_term_b3.sea = zeros(1,length(x));
+delta_term_b3.alt = zeros(1,length(x));
 
 for i = 1:length(x)-1 % "Sum CCW over front section" also wrong...
     delta_term_b1(i) = (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.thickness;
