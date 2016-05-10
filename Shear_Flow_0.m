@@ -66,8 +66,8 @@
 % % please calculate the shear stress from the shear flow
 
 %% Initialize
-x = zeros(1,length(airfoil.booms));
-y = zeros(1,length(airfoil.booms));
+
+
 
 %% Find area of each section
 i_A1 = find(ismember(x,spars.x(1)));        % i don't think this is right.... need to fiddle with it.

@@ -1,18 +1,12 @@
-%% Initialize
+function [Term_2, A_total] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy)
 
-x = zeros(1,length(x_CCW));
-y = zeros(1,length(y_CCW));
+%% Initialize
 
 delta_A = zeros(1,length(x));
 delta_Term_2_alt = zeros(length(x),length(z),5);
 delta_Term_2_sea = zeros(length(x),length(z),5);
 Term_2.alt = zeros(length(z),5);
 Term_2.sea = zeros(length(z),5);
-
-for i = 1:length(x_CCW)
-    x(i) = x_CCW(i);                
-    y(i) = y_CCW(i);
-end
 
 qb_sea = zeros(length(x),length(z),5);
 qb_alt = zeros(length(x),length(z),5);

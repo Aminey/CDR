@@ -150,13 +150,6 @@ ylabel('Moment My at Altitude (N*m)');
 
 
 %% Sigma Z's
-x = zeros(1,length(x_CCW));
-y = zeros(1,length(y_CCW));
-
-for i = 1:length(x_CCW)
-    x(i) = x_CCW(i);                
-    y(i) = y_CCW(i);
-end
 
 for k = 1:5
     for j = 1:length(z) 
