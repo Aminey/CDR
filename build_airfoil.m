@@ -1,4 +1,4 @@
-function [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps] = build_airfoil()
+% function [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps] = build_airfoil()
 %% airfoil section profile
 % NACA 2415
 %% 2415 Airfoil 
@@ -17,8 +17,8 @@ str.A_upp = 0.05;                            % area of each upper stringer
 str.A_low = 0.05;                            % area of each lower stringer
 caps.A = 0.1;                                % area of spar caps
 spar.x = x(120);                                                      % choose x location of spar
-str.x_upp = [x(1), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of upper stringers
-str.x_low = [x(1), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of lower stringers
+str.x_upp = [x(10), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of upper stringers
+str.x_low = [x(10), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of lower stringers
 
 
 %% Create Airfoil from equation
@@ -58,7 +58,8 @@ spar.i = round(spar.x./dx)+1;                % index of spars
 spar.h = yU(spar.i) - yL(spar.i);            % height of spar
 spar.Cy = (yU(spar.i) + yL(spar.i))/2;       % y centroid of spar  
 spar.A = spar.t*spar.h;                      % area of spar
-
+spar.y_upp = yU(spar.i);
+spar.y_low = yL(spar.i);
 
 %% Stringers
 str.n_upp = length(str.x_upp);                            % number of upper stringers
@@ -122,7 +123,7 @@ caps.x = spar.x;
 caps.n = 2*length(caps.x);
 caps.y_upp = yU(spar.i);
 caps.y_low = yL(spar.i);
-
+caps.i = round(caps.x/dx)+1;
 % Centroids of caps are at the x and y locations: caps.Cy = caps.C,
 
 %% Centroid of the overall wing section
@@ -210,6 +211,14 @@ end
 Ixx = sum(spar.Ixx)+sum(skin.Ixx_upp)+sum(skin.Ixx_low)+sum(str.Ixx_upp)+sum(str.Ixx_low)+sum(caps.Ixx_low);
 Iyy = sum(spar.Iyy)+sum(skin.Iyy_upp)+sum(skin.Iyy_low)+sum(str.Iyy_upp)+sum(str.Iyy_low)+sum(caps.Iyy_low);
 Ixy = sum(spar.Ixy)+sum(skin.Ixy_upp)+sum(skin.Ixy_low)+sum(str.Ixy_upp)+sum(str.Ixy_low)+sum(caps.Ixy_low);
+
+spar.i_CCW = length(x) - spar.i + 1;
+spar.i_CCW = sort([spar.i_CCW, (length(x) + spar.i - 1)]); 
+skin.i_CCW = length(x) - skin.i_upp + 1;
+skin.i_CCW = sort([skin.i_CCW, (length(x) + skin.i_low - 1)]);
+str.i_CCW = length(x) - str.i_upp + 1;
+str.i_CCW = sort([str.i_CCW, (length(x) + str.i_low - 1)]);
+caps.i_CCW = spar.i_CCW;
 
 
 %% coordiante transformation: new origin at centroid
