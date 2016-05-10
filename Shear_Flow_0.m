@@ -79,8 +79,8 @@ syms q01.alt q02.alt
 %% EQ 1
 for k = 1:5
     for j = 1:length(z)
-        M_0.sea + Sy.sea(j,k)*(x_quarterchord) - Sx.sea(j,k)*(0) = 2*A1*q01.sea(j,k) + 2*A2*q02.sea(j,k) + Term_2.sea;
-        M_0.alt + Sy.alt(j,k)*(x_quarterchord) - Sx.alt(j,k)*(0) = 2*A1*q01.alt(j,k) + 2*A2*q02.alt(j,k) + Term_2.alt;
+        eq1.sea = M_0.sea + Sy.sea(j,k)*(x_quarterchord) - Sx.sea(j,k)*(0) - (2*A1*q01.sea(j,k) + 2*A2*q02.sea(j,k) + Term_2.sea);
+        eq1.alt = M_0.alt + Sy.alt(j,k)*(x_quarterchord) - Sx.alt(j,k)*(0) - (2*A1*q01.alt(j,k) + 2*A2*q02.alt(j,k) + Term_2.alt);
     end
 end
 %% EQ 2
@@ -104,8 +104,8 @@ sum_term_a2.alt = sum(delta_term_a2.alt(:));
 sum_term_a3.sea = sum(delta_term_a3.sea(:));
 sum_term_a3.alt = sum(delta_term_a3.alt(:));
 
-dtheta_dz.sea = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.sea-q02.sea)*(y_bot - y_top)/spar.thickness + ((Sy.sea*Ixy - Sx.sea*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.sea) + ((Sx.sea*Ixy-Sy.sea*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.sea));
-dtheta_dz.alt = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.alt-q02.alt)*(y_bot - y_top)/spar.thickness + ((Sy.alt*Ixy - Sx.alt*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.alt) + ((Sx.alt*Ixy-Sy.alt*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.alt));
+dtheta_dz_1.sea = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.sea-q02.sea)*(y_bot - y_top)/spar.thickness + ((Sy.sea*Ixy - Sx.sea*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.sea) + ((Sx.sea*Ixy-Sy.sea*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.sea));
+dtheta_dz_1.alt = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.alt-q02.alt)*(y_bot - y_top)/spar.thickness + ((Sy.alt*Ixy - Sx.alt*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.alt) + ((Sx.alt*Ixy-Sy.alt*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.alt));
 
 % dtheta_dz 2
 delta_term_b1(i) = zeros(1,length(x)); %% this is wrong. doesnt go from 1 to length(x). goes over top and bottom
@@ -127,5 +127,9 @@ sum_term_b2.alt = sum(delta_term_b2.alt(:));
 sum_term_b3.sea = sum(delta_term_b3.sea(:));
 sum_term_b3.alt = sum(delta_term_b3.alt(:));
 
-dtheta_dz.sea = q02*(sum_term_b1) + (q02-q01)*(y_top-t_bottom)/spar.thickness + q02*(y_bot-y_top)/(skin.thickness + spar.thickness) + ((Sy.sea*Ixy - Sx.sea*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.sea) + ((Sx.sea*Ixy - Sy.sea*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.sea);
-dtheta_dz.alt = q02*(sum_term_b1) + (q02-q01)*(y_top-t_bottom)/spar.thickness + q02*(y_bot-y_top)/(skin.thickness + spar.thickness) + ((Sy.sea*Ixy - Sx.sea*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.alt) + ((Sx.sea*Ixy - Sy.sea*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.alt);
+dtheta_dz_2.sea = q02*(sum_term_b1) + (q02-q01)*(y_top-t_bottom)/spar.thickness + q02*(y_bot-y_top)/(skin.thickness + spar.thickness) + ((Sy.sea*Ixy - Sx.sea*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.sea) + ((Sx.sea*Ixy - Sy.sea*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.sea);
+dtheta_dz_2.alt = q02*(sum_term_b1) + (q02-q01)*(y_top-t_bottom)/spar.thickness + q02*(y_bot-y_top)/(skin.thickness + spar.thickness) + ((Sy.sea*Ixy - Sx.sea*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.alt) + ((Sx.sea*Ixy - Sy.sea*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.alt);
+
+% Equating dtheta_dz_1 and _2
+eq2.sea = dtheta_dz_2.sea - dtheta_dz_1.sea;
+eq2.alt = dtheta_dz_2.alt - dtheta_dz_1.alt;
