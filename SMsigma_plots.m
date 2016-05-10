@@ -150,33 +150,27 @@ ylabel('Moment My at Altitude (N*m)');
 
 
 %% Sigma Z's
+x = zeros(1,length(airfoil.booms));
+y = zeros(1,length(airfoil.booms));
+
+for i = 1:length(airfoil.booms)
+    x(i) = airfoil.booms(i).x_coordinate;                %%
+    y(i) = airfoil.booms(i).y_coordinate;
+end
 
 for k = 1:5
     for j = 1:length(z) 
-        for i = 1:length(structure.component_centroids)
-% j = spanwise stress, i = individual component stress
-% e.g sigma(5,3) = stress at z = 5 for component 3
-            sigma_z_alt_components(j,i) = Mx.alt(j,k)*(structure.inertias(2)*structure.component_centroids(i,2) - structure.inertias(3)*structure.component_centroids(i,1))/...
-                              (structure.inertias(1)*structure.inertias(2) - structure.inertias(3)^2) + My.alt(j,k)*(structure.inertias(1)*structure.component_centroids(i,1) - structure.inertias(3)*structure.component_centroids(i,2))/...
+        for i = 1:length(x)
+            sigma_z.alt(i,j,k) = Mx.alt(j,k)*(structure.inertias(2)*y(i) - structure.inertias(3)*x(i))/...
+                              (structure.inertias(1)*structure.inertias(2) - structure.inertias(3)^2) + My.alt(j,k)*...
+                              (structure.inertias(1)*x(i) - structure.inertias(3)*y(i))/...
                               (structure.inertias(1)*structure.inertias(2) - structure.inertias(3)^2);
-            sigma_z_sea_components(j,i) = Mx.sea(j,k)*(structure.inertias(2)*structure.component_centroids(i,2) - structure.inertias(3)*structure.component_centroids(i,1))/...
-                              (structure.inertias(1)*structure.inertias(2) - structure.inertias(3)^2) + My.sea(j,k)*(structure.inertias(1)*structure.component_centroids(i,1) - structure.inertias(3)*structure.component_centroids(i,2))/...
-                              (structure.inertias(1)*structure.inertias(2) - structure.inertias(3)^2);
+            sigma_z.sea(i,j,k) = Mx.sea(j,k)*(structure.inertias(2)*y(i) - structure.inertias(3)*x(i))/...
+                              (structure.inertias(1)*structure.inertias(2) - structure.inertias(3)^2) + My.sea(j,k)*...
+                              (structure.inertias(1)*x(i) - structure.inertias(3)*y(i))/...
+                              (structure.inertias(1)*structure.inertias(2) - structure.inertias(3)^2);    
         end
-            sigma_z.alt(j,k) = sum(sigma_z_alt_components(j,:));
-            sigma_z.sea(j,k) = sum(sigma_z_sea_components(j,:));
-
     end    
 end
 
-figure;
-plot(z,sigma_z.sea/1E6);
-legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
-xlabel('Spanwise Length (m)');
-ylabel('Stress at Sea Level(MPa)');
 
-figure;
-plot(z,sigma_z.alt/1E6);
-legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
-xlabel('Spanwise Length (m)');
-ylabel('Stress at Altitude(MPa)');

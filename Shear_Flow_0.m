@@ -127,5 +127,5 @@ sum_term_b2.alt = sum(delta_term_b2.alt(:));
 sum_term_b3.sea = sum(delta_term_b3.sea(:));
 sum_term_b3.alt = sum(delta_term_b3.alt(:));
 
-dtheta_dz.sea =
-dtheta_dz.alt =
+dtheta_dz.sea = q02*(sum_term_b1) + (q02-q01)*(y_top-t_bottom)/spar.thickness + q02*(y_bot-y_top)/(skin.thickness + spar.thickness) + ((Sy.sea*Ixy - Sx.sea*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.sea) + ((Sx.sea*Ixy - Sy.sea*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.sea);
+dtheta_dz.alt = q02*(sum_term_b1) + (q02-q01)*(y_top-t_bottom)/spar.thickness + q02*(y_bot-y_top)/(skin.thickness + spar.thickness) + ((Sy.sea*Ixy - Sx.sea*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.alt) + ((Sx.sea*Ixy - Sy.sea*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.alt);

@@ -172,15 +172,3 @@ for k = 1:5
         end
     end    
 end
-
-figure;
-plot(z,sigma_z.sea/1E6);
-legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
-xlabel('Spanwise Length (m)');
-ylabel('Stress at Sea Level(MPa)');
-
-figure;
-plot(z,sigma_z.alt/1E6);
-legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
-xlabel('Spanwise Length (m)');
-ylabel('Stress at Altitude(MPa)');
