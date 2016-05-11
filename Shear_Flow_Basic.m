@@ -21,8 +21,8 @@ for i = 1:length(x)-1
 end
     
 for i = 1:length(x)
-    x_temp(i) = x(i) - spar.x; % temporary coordinate shift with x=0 on front spar.
-                               % need this to calculate area of each cell.
+    x_temp(i) = x(i) - spar.x(1); % temporary coordinate shift with x=0 on front spar.
+                                  % need this to calculate area of each cell.
 end
 
 for i = spar.i_CCW(2):spar.i_CCW(3)-1
