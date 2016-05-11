@@ -8,10 +8,10 @@ for k = 1:5
         for i = 2:length(x)-1
             dist_rear = ((x(i)+x(i-1))^2 + (y(i)+y(i-1))^2)^0.5;
             dist_fore = ((x(i)+x(i+1))^2 + (y(i)+y(i+1))^2)^0.5;
-            if airfoil.booms(i).isStringer
+            if ismember(i, str.i_CCW)
                 area_term = str.A;
-            elseif airfoil.booms(i).isCap
-                area_term = caps.A;
+            elseif ismember(i, spar.i_CCW)
+                area_term = 2*caps.A;
             else
                 area_term = 0;
             end
@@ -45,11 +45,11 @@ for k = 1:5
        
 
 %% Stringers on first and last coordinates?
-        if airfoil.booms(1).isStringer
+        if ismember(1,str.i_CCW)
            Booms.alt(1,j,k) = Booms.alt(1,j,k) + str.A; 
            Booms.sea(1,j,k) = Booms.sea(1,j,k) + str.A;
         end
-        if airfoil.booms(end).isStringer
+        if ismember(length(x),str.i_CCW)
            Booms.alt(end,j,k) = Booms.alt(end,j,k) + str.A; 
            Booms.sea(end,j,k) = Booms.sea(end,j,k) + str.A;
         end
@@ -58,10 +58,10 @@ for k = 1:5
 
 %% Add the contribution of spar's path for shear flow
     m = 1;
-    spar_holder = zeros(1,4);  
+    spar_holder = zeros(1,4);  % will hold the indices of the spar connection locations
     
     for i = 1:length(x)
-        if ismember(x(i),spar.x) %%change!
+        if ismember(i,spar.i_CCW) 
            spar_holder(m) = i;
            m = m+1;
         end
@@ -73,9 +73,6 @@ for k = 1:5
                   % used to relate spar connections 1 and 4 and connections 2 and 3
          Booms.sea(spar_holder(m),j,k) = Booms.sea(spar_holder(m),j,k) + kt * spars.height(1)/6 * ...
                                                         (2 + sigma_z.sea(spar_holder(5-m),j,k)/sigma_z.sea(spar_holder(m),j,k));
-
-
-
          Booms.alt(spar_holder(m),j,k) = Booms.alt(spar_holder(m),j,k) + kt * spars.height(1)/6 * ...
                                                         (2 + sigma_z.alt(spar_holder(5-m),j,k)/sigma_z.alt(spar_holder(5-m),j,k));
 

@@ -89,6 +89,6 @@ structure.E  = 70E9;                  % Pa  Young's Modulus
 [Sx, Sy, Mx, My, sigma_z] = SMsigma_plots(alpha, x, y, z, structure, L_distribution, D_distribution);
 [u, v] = uv_plots(z, structure, My, Mx);
 [Booms] = Booms(x, y, z, sigma_z, skin);
-[Term_2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy);
-[Term_1] = Shear_Flow_0(x, y, z, Booms, Sx, Sy, A_total, qb, Term_2, M_0, x_quarterchord);%% incomplete inputs
+[Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy);
+[Term_1] = Shear_Flow_0(x, y, z, Booms, Sx, Sy, A1, A2, qb, Term_2, M_0, x_quarterchord); %% need M_0 and quarterchord
 

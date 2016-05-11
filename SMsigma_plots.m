@@ -30,8 +30,6 @@ My.alt = zeros(length(z),5);
 
 sigma_z.alt = zeros(length(z),5);
 sigma_z.sea = zeros(length(z),5);
-sigma_z_alt_components = zeros(length(z),length(structure.component_centroids));
-sigma_z_sea_components = zeros(length(z),length(structure.component_centroids));
 
 %transform forces
 for i = 1:5
