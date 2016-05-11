@@ -1,4 +1,4 @@
-function [Sx, Sy, Mx, My, sigma_z] = SMsigma_plots(alpha, z, structure, L_distribution, D_distribution)
+function [Sx, Sy, Mx, My, sigma_z] = SMsigma_plots(alpha, x, y, z, L_distribution, D_distribution)
 
 %% Preallocate Matrices
 wx_sea = zeros(length(z),5);

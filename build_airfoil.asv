@@ -1,4 +1,6 @@
-function [x_c, y_c, Ixx, Iyy, Ixy, skin, spar, str, caps] = build_airfoil()
+% function [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps] = build_airfoil()
+
+ 
 
 
 clear all;
@@ -246,8 +248,7 @@ str.i_CCW = length(x) - str.i_upp + 1;
 str.i_CCW = sort([str.i_CCW, (length(x) + str.i_low - 1)]);
 caps.i_CCW = spar.i_CCW;
 
-x_c = x_CCW - Cx;
-y_c = y_CCW - Cy;
+xc = 
 
 %% coordiante transformation: new origin at centroid
 %

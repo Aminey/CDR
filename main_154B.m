@@ -86,7 +86,7 @@ structure.E  = 70E9;                  % Pa  Young's Modulus
 %% Functions
 [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps] = build_airfoil();
 [L_distribution, D_distribution] = LD_plots();
-[Sx, Sy, Mx, My, sigma_z] = SMsigma_plots(alpha, x, y, z, structure, L_distribution, D_distribution);
+[Sx, Sy, Mx, My, sigma_z] = SMsigma_plots(alpha, x, y, z, L_distribution, D_distribution);
 [u, v] = uv_plots(z, structure, My, Mx);
 [Booms] = Booms(x, y, z, sigma_z, skin);
 [Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy);
