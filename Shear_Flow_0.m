@@ -108,8 +108,8 @@ sum_term_b2.alt(j,k) = sum(delta_term_b2.alt(:,j,k));
 sum_term_b3.sea(j,k) = sum(delta_term_b3.sea(:,j,k));
 sum_term_b3.alt(j,k) = sum(delta_term_b3.alt(:,j,k));
 
-dtheta_dz_2.sea(j,k) = q02.sea(j,k)*(sum_term_b1(j,k)) + (q02.sea(j,k)-q01.sea(j,k))*(caps.y_upp_c-caps.y_low_c)/spar.t + q02.sea(j,k)*(caps.y_low_c - caps.y_upp_c)/(skin.t + spar.t) + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.sea(j,k)) + ((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.sea(j,k));
-dtheta_dz_2.alt(j,k) = q02.alt(j,k)*(sum_term_b1(j,k)) + (q02.alt(j,k)-q01.alt(j,k))*(caps.y_upp_c-caps.y_low_c)/spar.t + q02.alt(j,k)*(caps.y_low_c - caps.y_upp_c)/(skin.t + spar.t) + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.alt(j,k)) + ((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.alt(j,k));
+dtheta_dz_2.sea(j,k) = q02.sea(j,k)*(sum_term_b1(j,k)) + (q02.sea(j,k)-q01.sea(j,k))*(caps.y_upp_c-caps.y_low_c)/spar.t + q02.sea(j,k)*(caps.y_low_c - caps.y_upp_c)/(spar.t) + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.sea(j,k)) + ((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.sea(j,k));
+dtheta_dz_2.alt(j,k) = q02.alt(j,k)*(sum_term_b1(j,k)) + (q02.alt(j,k)-q01.alt(j,k))*(caps.y_upp_c-caps.y_low_c)/spar.t + q02.alt(j,k)*(caps.y_low_c - caps.y_upp_c)/(spar.t) + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.alt(j,k)) + ((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.alt(j,k));
 
 % Equating dtheta_dz_1 and _2
 eq2.sea(j,k) = dtheta_dz_2.sea(j,k) - dtheta_dz_1.sea(j,k);

@@ -18,6 +18,7 @@ rho_sea = 1.225;            % kg/m^3        density of air at sea level
 rho_alt = 0.78205;          % kg/m^3      density of air at 14,600 ft
 theta = 30;                 % deg
 alpha = 10;                 % deg
+G = 28E+9;                  % Pa
 
 %% Wing Geometry
 b = 10.82;                  % m        span
@@ -27,7 +28,7 @@ m = 1100;                   % kg       aircraft maximum gross mass
 W = 1100*9.8;               % N        aircraft maximum gross weight
 AR = b^2/S;                 %          aspect ratio
 e = 0.79;                   %          oswald efficiency
-z = 0:0.01:b/2;             % m        semi span vector
+z = 0:0.1:b/2;             % m        semi span vector
 
 %% Aerodynamic Data
 CD0_sea = 0.00562;
@@ -44,6 +45,9 @@ C_La_sea = C_la_sea/(1+C_la_sea/(AR*pi*e));     %1/rad
 C_L0_sea = (C_La_sea/C_la_sea)*C_l0_sea;
 C_La_alt = C_la_alt/(1+C_la_alt/(AR*pi*e));     %1/rad
 C_L0_alt = (C_La_alt/C_la_alt)*C_l0_alt;
+
+M_0.sea = [1 1 1 1 1];                      %replace
+M_0.alt = [1 1 1 1 1];                      %replace
 
 %critical flight condition loading
 %[PHAA PLAA NHAA Downward_Gust NLAA]
@@ -84,7 +88,7 @@ structure.E  = 70E9;                  % Pa  Young's Modulus
 %[wing_section_centroid, structure, component_moments] = calculate_geometry(wing,c,structure,theta);
 
 %% Functions
-[x, y, Ixx, Iyy, Ixy, skin, spar, str, caps] = build_airfoil();
+[x, y, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil();
 [L_distribution, D_distribution] = LD_plots();
 [Sx, Sy, Mx, My, sigma_z] = SMsigma_plots(alpha, x, y, z, Ixx, Iyy, Ixy, L_distribution, D_distribution);
 [u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);
