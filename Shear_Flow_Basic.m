@@ -41,8 +41,8 @@ for k = 1:5
             qb.alt(1,j,k) = (((Sx.alt(j,k)*Ixx - Sy.alt(j,k)*Ixy)/(Ixx*Iyy - Ixy))*Booms.alt(1,j,k)*x(i)) -...
                                          (((Sy.alt(j,k)*Iyy -Sx.alt(j,k)*Ixy)/(Ixx*Iyy-Ixy^2))*Booms.alt(1,j,k)*y(i));
                                      
-            delta_Term_2_alt(1,j,k) = 2*delta_A(1)*qb_alt(1,j,k);
-            delta_Term_2_sea(1,j,k) = 2*delta_A(1)*qb_sea(1,j,k);
+            delta_Term_2_alt(1,j,k) = 2*delta_A(1)*qb.alt(1,j,k);
+            delta_Term_2_sea(1,j,k) = 2*delta_A(1)*qb.sea(1,j,k);
             
         for i = 2:length(x)-1   %% for n number of points, there will be n flows, but the first is cut. 
                                  % So moving counterclockwise, you will
