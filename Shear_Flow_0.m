@@ -1,12 +1,12 @@
-[Term_1] = Shear_Flow_0(x, y, z, Booms, Sx, Sy, A1, A2, qb, G, Term_2, M_0, x_quarterchord, skin, str, caps, spar);
+function [q, tau] = Shear_Flow_0(x, y, z, Booms, Sx, Sy, A1, A2, qb, G, Term_2, M_0, x_quarterchord, skin, str, caps, spar);
 
 % check what thickness should be
 
 %% Initialize
-syms q01.alt;
-syms q01.sea;
-syms q02.alt;
-syms q02.sea;
+syms q01_alt;
+syms q01_sea;
+syms q02_alt;
+syms q02_sea;
 
 % dtheta_dz_1
 delta_term_a1 = zeros(length(x),length(z),5);
@@ -60,8 +60,8 @@ for k = 1:5
 for j = 1:length(z)
     
 %% EQ 1
-eq1.sea(j,k) = M_0.sea(k) + Sy.sea(j,k)*(x_quarterchord) - Sx.sea(j,k)*(0) - (2*A1*q01.sea(j,k) + 2*A2*q02.sea(j,k) + Term_2.sea(j,k));
-eq1.alt(j,k) = M_0.alt(k) + Sy.alt(j,k)*(x_quarterchord) - Sx.alt(j,k)*(0) - (2*A1*q01.alt(j,k) + 2*A2*q02.alt(j,k) + Term_2.alt(j,k));
+eq1.sea(j,k) = M_0.sea(k) + Sy.sea(j,k)*(x_quarterchord) - Sx.sea(j,k)*(0) - (2*A1*q01_sea(j,k) + 2*A2*q02_sea(j,k) + Term_2.sea(j,k));
+eq1.alt(j,k) = M_0.alt(k) + Sy.alt(j,k)*(x_quarterchord) - Sx.alt(j,k)*(0) - (2*A1*q01_alt(j,k) + 2*A2*q02_alt(j,k) + Term_2.alt(j,k));
 
 %% EQ 2
 
@@ -81,8 +81,8 @@ sum_term_a2.alt(j,k) = sum(delta_term_a2.alt(:,j,k));
 sum_term_a3.sea(j,k) = sum(delta_term_a3.sea(:,j,k));
 sum_term_a3.alt(j,k) = sum(delta_term_a3.alt(:,j,k));
 
-dtheta_dz_1.sea(j,k) = (1/(2*A1*G)) * (q01.sea(j,k)*(sum_term_a1(j,k)) + (q01.sea(j,k)-q02.sea(j,k))*(caps.y_low_c - caps.y_upp_c)/spar.t + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.sea(j,k)) + ((Sx.sea(j,k)*Ixy-Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.sea(j,k)));
-dtheta_dz_1.alt(j,k) = (1/(2*A1*G)) * (q01.sea(j,k)*(sum_term_a1(j,k)) + (q01.alt(j,k)-q02.alt(j,k))*(caps.y_low_c - caps.y_upp_c)/spar.t + ((Sy.alt(j,k)*Ixy - Sx.alt(j,k)*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.alt(j,k)) + ((Sx.alt(j,k)*Ixy-Sy.alt(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.alt(j,k)));
+dtheta_dz_1.sea(j,k) = (1/(2*A1*G)) * (q01_sea(j,k)*(sum_term_a1(j,k)) + (q01_sea(j,k)-q02_sea(j,k))*(caps.y_low_c - caps.y_upp_c)/spar.t + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.sea(j,k)) + ((Sx.sea(j,k)*Ixy-Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.sea(j,k)));
+dtheta_dz_1.alt(j,k) = (1/(2*A1*G)) * (q01_sea(j,k)*(sum_term_a1(j,k)) + (q01_alt(j,k)-q02_alt(j,k))*(caps.y_low_c - caps.y_upp_c)/spar.t + ((Sy.alt(j,k)*Ixy - Sx.alt(j,k)*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.alt(j,k)) + ((Sx.alt(j,k)*Ixy-Sy.alt(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.alt(j,k)));
 
 counter = 1;
 for i = 1:spar.i_CCW(2)-1 %top rear skin
@@ -108,8 +108,8 @@ sum_term_b2.alt(j,k) = sum(delta_term_b2.alt(:,j,k));
 sum_term_b3.sea(j,k) = sum(delta_term_b3.sea(:,j,k));
 sum_term_b3.alt(j,k) = sum(delta_term_b3.alt(:,j,k));
 
-dtheta_dz_2.sea(j,k) = q02.sea(j,k)*(sum_term_b1(j,k)) + (q02.sea(j,k)-q01.sea(j,k))*(caps.y_upp_c-caps.y_low_c)/spar.t + q02.sea(j,k)*(caps.y_low_c - caps.y_upp_c)/(spar.t) + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.sea(j,k)) + ((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.sea(j,k));
-dtheta_dz_2.alt(j,k) = q02.alt(j,k)*(sum_term_b1(j,k)) + (q02.alt(j,k)-q01.alt(j,k))*(caps.y_upp_c-caps.y_low_c)/spar.t + q02.alt(j,k)*(caps.y_low_c - caps.y_upp_c)/(spar.t) + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.alt(j,k)) + ((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.alt(j,k));
+dtheta_dz_2.sea(j,k) = q02_sea(j,k)*(sum_term_b1(j,k)) + (q02_sea(j,k)-q01_sea(j,k))*(caps.y_upp_c-caps.y_low_c)/spar.t + q02_sea(j,k)*(caps.y_low_c - caps.y_upp_c)/(spar.t) + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.sea(j,k)) + ((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.sea(j,k));
+dtheta_dz_2.alt(j,k) = q02_alt(j,k)*(sum_term_b1(j,k)) + (q02_alt(j,k)-q01_alt(j,k))*(caps.y_upp_c-caps.y_low_c)/spar.t + q02_alt(j,k)*(caps.y_low_c - caps.y_upp_c)/(spar.t) + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.alt(j,k)) + ((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.alt(j,k));
 
 % Equating dtheta_dz_1 and _2
 eq2.sea(j,k) = dtheta_dz_2.sea(j,k) - dtheta_dz_1.sea(j,k);
@@ -119,6 +119,7 @@ eq2.alt(j,k) = dtheta_dz_2.alt(j,k) - dtheta_dz_1.alt(j,k);
 [q01.sea(j,k),q02.sea(j,k)] = solve(eq1.sea(j,k)==0,eq2.sea(j,k)==0);
 [q01.alt(j,k),q02.alt(j,k)] = solve(eq1.alt(j,k)==0,eq2.alt(j,k)==0);
 
+%% Shear Flow and Shear Stress Results
 for i = 1:spar.i_CCW(2)-1
     q.sea(i,j,k) = qb.sea(i,j,k) + q02.sea(j,k);
     q.alt(i,j,k) = qb.alt(i,j,k) + q02.alt(j,k);

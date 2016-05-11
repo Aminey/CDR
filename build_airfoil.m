@@ -7,7 +7,7 @@ m = 0.02;               %
 p = 0.4;                % max camber
 t = 0.15;               % max thickness 
 c = 1.5;                % chord length
-nx = 200;               % number of increments
+nx = 500;               % number of increments
 dx = c/nx;  
 x = 0:dx:c;             % even spacing
 
