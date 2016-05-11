@@ -1,6 +1,9 @@
 % function [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps] = build_airfoil()
-%% airfoil section profile
-% NACA 2415
+
+ 
+
+
+clear all;
 %% 2415 Airfoil 
 m = 0.02;               % 
 p = 0.4;                % max camber
@@ -19,7 +22,6 @@ caps.A = 1E-5;                                % area of spar caps
 spar.x = x(120);                                                      % choose x location of spar
 str.x_upp = [x(10), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of upper stringers
 str.x_low = [x(10), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of lower stringers
-
 
 %% Create Airfoil from equation
 yc = zeros(1,nx+1);
@@ -128,8 +130,10 @@ caps.i = round(caps.x/dx)+1;
 
 %% Centroid of the overall wing section
 % initial value
-Cx_sum = 2*(sum(caps.x)) + sum(str.x_upp) + sum(str.x_low) + sum(spar.x) + sum(skin.Cx_low) + sum(skin.Cx_upp) + sum(caps.x);
-Cy_sum = sum(caps.y_low) + sum(caps.y_upp) + sum(yU(str.i_upp)) + sum(yL(str.i_low)) + sum(spar.Cy) + sum(skin.Cy_low) + sum(skin.Cy_upp);
+Cx_sum = 2*(sum(caps.x.*caps.A)) + sum(str.x_upp.*str.A_upp) + sum(str.x_low.*str.A_low) + sum(spar.x.*spar.A) ...
+         + sum(skin.Cx_low.*skin.A_low) + sum(skin.Cx_upp.*skin.A_upp);
+Cy_sum = sum(caps.y_low.*caps.A) + sum(caps.y_upp.*caps.A) + sum(yU(str.i_upp).*str.A_upp) + sum(yL(str.i_low).*str.A_low) ... 
+         + sum(spar.Cy.*spar.A) + sum(skin.Cy_low.*skin.A_low) + sum(skin.Cy_upp.*skin.A_upp);
 A_sum = caps.A*caps.n + str.A_upp*str.n_upp + str.A_low*str.n_low + sum(spar.A) + sum(skin.A_low) + sum(skin.A_upp);
 
 Cx = Cx_sum/A_sum;
@@ -151,21 +155,7 @@ ylabel('y (m)')
 xlabel('x (m)')
 grid on
 
-%% Make CCW coordinate system for shear flow
-x_CCW = zeros(1,length(x));
-yU_CCW = zeros(1,length(x));
-yL_CCW = zeros(1,length(x));
-
-for i = 1:length(x)
-    x_CCW(i) = x(end - i + 1);
-    yU_CCW(i) = yU(end - i + 1);
-    yL_CCW(i) = yL(end - i + 1);
-end
-y_CCW = [yU_CCW yL_CCW(2:end)];         % the 2:end gets rid of the extra initial 0 value
-x_CCW = [x_CCW x(2:end)];
-
 %% Area moments of inertia
-
 for i = 1:length(spar.x)
     spar.Ixx(i) = (spar.t*spar.h(i)^3)/12 + spar.A(i)*(spar.Cy(i) - Cy)^2;
     spar.Iyy(i) = (spar.h(i)*spar.t^3)/12 + spar.A(i)*(spar.x(i) - Cx)^2;
@@ -211,6 +201,44 @@ end
 Ixx = sum(spar.Ixx)+sum(skin.Ixx_upp)+sum(skin.Ixx_low)+sum(str.Ixx_upp)+sum(str.Ixx_low)+sum(caps.Ixx_low);
 Iyy = sum(spar.Iyy)+sum(skin.Iyy_upp)+sum(skin.Iyy_low)+sum(str.Iyy_upp)+sum(str.Iyy_low)+sum(caps.Iyy_low);
 Ixy = sum(spar.Ixy)+sum(skin.Ixy_upp)+sum(skin.Ixy_low)+sum(str.Ixy_upp)+sum(str.Ixy_low)+sum(caps.Ixy_low);
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% BELOW CALCULATIONS ARE COORDINATE TRANSFORMATIONS FOR JARED's CODE %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Shift coordinate system to centroid-centered frame
+% x's
+spar.x_c = spar.x - Cx;
+skin.x_upp_c = skin.x_upp - Cx;
+skin.x_low_c = skin.x_low - Cx;
+str.x_upp_c = str.x_upp - Cx;
+str.x_low_c = str.x_low - Cx;
+caps.x_upp_c = caps.x_upp - Cx;
+caps.x_low_c = caps.x_low - Cx;
+
+% y's (Cy's are y's for point-components)
+skin.y_upp_c = skin.Cy_upp - Cy;
+skin.y_low_c = skin.Cy_low - Cy;
+str.y_upp_c = str.Cy_upp - Cy;
+str.y_low_c = str.Cy_low - Cy;
+caps.y_upp_c = caps.y_upp - Cy;
+caps.y_low_c = caps.y_low - Cy;
+
+%% Make CCW coordinate system for shear flow
+x_CCW = zeros(1,length(x));
+yU_CCW = zeros(1,length(x));
+yL_CCW = zeros(1,length(x));
+
+for i = 1:length(x)
+    x_CCW(i) = x(end - i + 1);
+    yU_CCW(i) = yU(end - i + 1);
+    yL_CCW(i) = yL(end - i + 1);
+end
+y_CCW = [yU_CCW yL_CCW(2:end)];         % the 2:end gets rid of the extra initial 0 value
+x_CCW = [x_CCW x(2:end)];
+
+
 
 spar.i_CCW = length(x) - spar.i + 1;
 spar.i_CCW = sort([spar.i_CCW, (length(x) + spar.i - 1)]); 
