@@ -22,37 +22,39 @@ delta_term_b2.alt = zeros(length(x),length(z),5);
 delta_term_b3.sea = zeros(length(x),length(z),5);
 delta_term_b3.alt = zeros(length(x),length(z),5);
 
-qtot.sea = zeros(1,length(x)+1);           % the +1 is for the spar
-qtot.alt = zeros(1,length(x)+1);
+sum_term_a1 = zeros(length(z),5);
+sum_term_a2.sea = zeros(length(z),5);
+sum_term_a2.alt = zeros(length(z),5);
+sum_term_a3.sea = zeros(length(z),5);
+sum_term_a3.alt = zeros(length(z),5);
 
-sum_term_a1(j,k) = zeros(length(z),5);
-sum_term_a2.sea(j,k) = zeros(length(z),5);
-sum_term_a2.alt(j,k) = zeros(length(z),5);
-sum_term_a3.sea(j,k) = zeros(length(z),5);
-sum_term_a3.alt(j,k) = zeros(length(z),5);
+sum_term_b1 = zeros(length(z),5);
+sum_term_b2.sea = zeros(length(z),5);
+sum_term_b2.alt = zeros(length(z),5);
+sum_term_b3.sea = zeros(length(z),5);
+sum_term_b3.alt = zeros(length(z),5);
 
-sum_term_b1(j,k) = zeros(length(z),5);
-sum_term_b2.sea(j,k) = zeros(length(z),5);
-sum_term_b2.alt(j,k) = zeros(length(z),5);
-sum_term_b3.sea(j,k) = zeros(length(z),5);
-sum_term_b3.alt(j,k) = zeros(length(z),5);
+dtheta_dz_1.sea = zeros(length(z),5);
+dtheta_dz_1.alt = zeros(length(z),5);
 
-dtheta_dz_1.sea(j,k) = zeros(length(z),5);
-dtheta_dz_1.alt(j,k) = zeros(length(z),5);
+dtheta_dz_2.sea = zeros(length(z),5);
+dtheta_dz_2.alt = zeros(length(z),5);
 
-dtheta_dz_2.sea(j,k) = zeros(length(z),5);
-dtheta_dz_2.alt(j,k) = zeros(length(z),5);
+eq1.sea = zeros(length(z),5);
+eq1.alt = zeros(length(z),5);
 
-eq1.sea(j,k) = zeros(length(z),5);
-eq1.alt(j,k) = zeros(length(z),5);
+eq2.sea = zeros(length(z),5);
+eq2.alt = zeros(length(z),5);
 
-eq2.sea(j,k) = zeros(length(z),5);
-eq2.alt(j,k) = zeros(length(z),5);
+q.sea = zeros(length(x),length(z),5);
+q.alt = zeros(length(x),length(z),5);
+q.sea_spar = zeros(length(z),5);
+q.alt_spar = zeros(length(z),5);
 
-q.sea(i,j,k) = zeros(length(x),length(z),5);
-q.alt(i,j,k) = zeros(length(x),length(z),5);
-q.sea_spar(j,k) = zeros(length(z),5);
-q.alt_spar(j,k) = zeros(length(z),5);
+tau.sea = zeros(length(x),length(z),5);
+tau.alt = zeros(length(x),length(z),5);
+tau.sea_spar = zeros(length(x),length(z),5);
+tau.alt_spar = zeros(length(x),length(z),5);
 
 for k = 1:5
 for j = 1:length(z)
@@ -120,19 +122,25 @@ eq2.alt(j,k) = dtheta_dz_2.alt(j,k) - dtheta_dz_1.alt(j,k);
 for i = 1:spar.i_CCW(2)-1
     q.sea(i,j,k) = qb.sea(i,j,k) + q02.sea(j,k);
     q.alt(i,j,k) = qb.alt(i,j,k) + q02.alt(j,k);
+    tau.sea(i,j,k) = q.sea(i,j,k) / skin.t;
+    tau.alt(i,j,k) = q.alt(i,j,k) / skin.t;
 end
 for i = spar.i_CCW(2):spar.i_CCW(3)-1
     q.sea(i,j,k) = qb.sea(i,j,k) + q01.sea(j,k);
     q.alt(i,j,k) = qb.alt(i,j,k) + q01.alt(j,k);
+    tau.sea(i,j,k) = q.sea(i,j,k) / skin.t;
+    tau.alt(i,j,k) = q.alt(i,j,k) / skin.t;
 end
 for i = spar.i_CCW(3):length(x)
     q.sea(i,j,k) = qb.sea(i,j,k) + q01.sea(j,k);
     q.alt(i,j,k) = qb.alt(i,j,k) + q01.alt(j,k);
+    tau.sea(i,j,k) = q.sea(i,j,k) / skin.t;
+    tau.alt(i,j,k) = q.alt(i,j,k) / skin.t;
 end
     q.sea_spar(j,k) = q01.sea(j,k) - q02.sea(j,k);
     q.alt_spar(j,k) = q01.alt(j,k) - q02.alt(j,k);
+    tau.sea_spar(j,k) = q.sea_spar(j,k) / spar.t;
+    tau.alt_spar(j,k) = q.alt_spar(j,k) / spar.t;
 
-% % shear stress tau
-% % please calculate the shear stress from the shear flow
 end
 end
