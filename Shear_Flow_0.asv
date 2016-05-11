@@ -1,6 +1,6 @@
 [Term_1] = Shear_Flow_0(x, y, z, Booms, Sx, Sy, A1, A2, qb, G, Term_2, M_0, x_quarterchord, skin, str, caps, spar);
 
-% check what thickness should be
+%% THICKNESS???
 
 %% Initialize
 syms q01.alt;
@@ -49,8 +49,8 @@ sum_term_a2.alt = sum(delta_term_a2.alt(:));
 sum_term_a3.sea = sum(delta_term_a3.sea(:));
 sum_term_a3.alt = sum(delta_term_a3.alt(:));
 
-dtheta_dz_1.sea = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.sea-q02.sea)*(caps.y_low - y_top)/spar.t + ((Sy.sea*Ixy - Sx.sea*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.sea) + ((Sx.sea*Ixy-Sy.sea*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.sea));
-dtheta_dz_1.alt = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.alt-q02.alt)*(caps.y_low - y_top)/spar.t + ((Sy.alt*Ixy - Sx.alt*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.alt) + ((Sx.alt*Ixy-Sy.alt*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.alt));
+dtheta_dz_1.sea = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.sea-q02.sea)*(y_bot - y_top)/spar.t + ((Sy.sea*Ixy - Sx.sea*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.sea) + ((Sx.sea*Ixy-Sy.sea*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.sea));
+dtheta_dz_1.alt = (1/(2*A1*G)) * (q01.sea*(sum_term_a1) + (q01.alt-q02.alt)*(y_bot - y_top)/spar.t + ((Sy.alt*Ixy - Sx.alt*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.alt) + ((Sx.alt*Ixy-Sy.alt*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.alt));
 
 
 for i = 1:spar.i_CCW(2)-1 %top rear skin

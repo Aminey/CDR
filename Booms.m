@@ -1,7 +1,8 @@
-function [Booms] = Booms(x,y,z,sigma_z,skin)
+function [Booms] = Booms(x,y,z,sigma_z,skin, str, caps, spar)
 
 Booms.alt = zeros(length(x),length(z),5);
 Booms.sea = zeros(length(x),length(z),5);
+str.A = str.A_upp;
 
 for k = 1:5
     for j = 1:length(z)    
@@ -71,13 +72,11 @@ for k = 1:5
                   % spar and 4 will be the bottom. 2 and 3 will be the top
                   % and bottom of the forward spar. thus, index (5-m) is
                   % used to relate spar connections 1 and 4 and connections 2 and 3
-         Booms.sea(spar_holder(m),j,k) = Booms.sea(spar_holder(m),j,k) + kt * spars.height(1)/6 * ...
+         Booms.sea(spar_holder(m),j,k) = Booms.sea(spar_holder(m),j,k) + skin.t * spar.h(1)/6 * ...
                                                         (2 + sigma_z.sea(spar_holder(5-m),j,k)/sigma_z.sea(spar_holder(m),j,k));
-         Booms.alt(spar_holder(m),j,k) = Booms.alt(spar_holder(m),j,k) + kt * spars.height(1)/6 * ...
+         Booms.alt(spar_holder(m),j,k) = Booms.alt(spar_holder(m),j,k) + skin.t * spar.h(1)/6 * ...
                                                         (2 + sigma_z.alt(spar_holder(5-m),j,k)/sigma_z.alt(spar_holder(5-m),j,k));
 
     end
     end
 end
-
-

@@ -68,8 +68,8 @@ i = 1; %select condition
 % alpha.alt(4) = alpha.alt(4) - atand(15.24/63.9);
 % alpha.alt(5) = alpha.alt(5) - atand(7.62/95.8);
 
-alpha.sea = [13.9052701333745,4.10748947715895,-16.4576568720170,-31.4285542138703,-21.4882002727429]; %degrees
-alpha.alt = [13.4258359283956,7.63933446931109,-15.7259634258954,-32.8453936499525,-22.2947607913865]; %degrees
+alpha.sea = [13.90527,4.10748,-16.457656,-31.4285542,-21.488200]; %degrees
+alpha.alt = [13.42583,7.63933,-15.72596,-32.8453936,-22.294760]; %degrees
 
 %% Structural Elements and Parameters
 %box beam parameters
@@ -86,9 +86,9 @@ structure.E  = 70E9;                  % Pa  Young's Modulus
 %% Functions
 [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps] = build_airfoil();
 [L_distribution, D_distribution] = LD_plots();
-[Sx, Sy, Mx, My, sigma_z] = SMsigma_plots(alpha, x, y, z, L_distribution, D_distribution);
-[u, v] = uv_plots(z, structure, My, Mx);
-[Booms] = Booms(x, y, z, sigma_z, skin);
+[Sx, Sy, Mx, My, sigma_z] = SMsigma_plots(alpha, x, y, z, Ixx, Iyy, Ixy, L_distribution, D_distribution);
+[u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);
+[Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar);
 [Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy);
-[Term_1] = Shear_Flow_0(x, y, z, Booms, Sx, Sy, A1, A2, qb, Term_2, M_0, x_quarterchord); %% need M_0 and quarterchord
+[Term_1] = Shear_Flow_0(x, y, z, Booms, Sx, Sy, A1, A2, qb, G, Term_2, M_0, x_quarterchord, skin, str, caps, spar); %% need M_0 and quarterchord
 

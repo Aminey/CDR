@@ -16,7 +16,7 @@ x_temp = zeros(1,length(x));
 
 %% Find incremental, cell, and total area
 
-for i = 1:length(x)
+for i = 1:length(x)-1
     delta_A(i) = abs(x(i+1)*y(i) - y(i+1)*x(i))/2;
 end
     
@@ -25,7 +25,7 @@ for i = 1:length(x)
                                % need this to calculate area of each cell.
 end
 
-for i = spar.i_CCW(2):spar.i_CCW(3)
+for i = spar.i_CCW(2):spar.i_CCW(3)-1
     delta_A1(i) = abs(x_temp(i+1)*y(i) - y(i+1)*x_temp(i))/2;
 end
 

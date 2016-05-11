@@ -1,8 +1,8 @@
-function [u, v] = uv_plots(z, structure, My, Mx)
+function [u, v] = uv_plots(z, Ixx, Iyy, Ixy, structure, My, Mx)
 
-Ixx = structure.inertias(1);
-Iyy = structure.inertias(2);
-Ixy = structure.inertias(3);
+% Ixx = structure.inertias(1);
+% Iyy = structure.inertias(2);
+% Ixy = structure.inertias(3);
 
 %% Preallocation
 % u's and v's
