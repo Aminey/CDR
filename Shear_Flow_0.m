@@ -55,14 +55,14 @@ tau.alt_spar = zeros(length(x),length(z),5);
 for k = 1:5
 for j = 1:length(z)
     
-syms q01_alt;
-syms q01_sea;
-syms q02_alt;
-syms q02_sea;
+q01_alt = sym(zeros(length(z),5));
+q01_sea = sym(zeros(length(z),5));
+q02_alt = sym(zeros(length(z),5));
+q02_sea = sym(zeros(length(z),5));
     
 %% EQ 1
-eq1.sea(j,k) = M_0.sea(k) + Sy.sea(j,k)*(x_quarterchord) - Sx.sea(j,k)*(0) - (2*A1*q01_sea + 2*A2*q02_sea + Term_2.sea(j,k));
-eq1.alt(j,k) = M_0.alt(k) + Sy.alt(j,k)*(x_quarterchord) - Sx.alt(j,k)*(0) - (2*A1*q01_alt + 2*A2*q02_alt + Term_2.alt(j,k));
+eq1.sea(j,k) = M_0.sea(k) + Sy.sea(j,k)*(x_quarterchord) - Sx.sea(j,k)*(0) - (2*A1*q01_sea(j,k) + 2*A2*q02_sea(j,k) + Term_2.sea(j,k));
+eq1.alt(j,k) = M_0.alt(k) + Sy.alt(j,k)*(x_quarterchord) - Sx.alt(j,k)*(0) - (2*A1*q01_alt(j,k) + 2*A2*q02_alt(j,k) + Term_2.alt(j,k));
 disp(q01_alt);
 %% EQ 2
 
@@ -82,8 +82,8 @@ sum_term_a2.alt(j,k) = sum(delta_term_a2.alt(:,j,k));
 sum_term_a3.sea(j,k) = sum(delta_term_a3.sea(:,j,k));
 sum_term_a3.alt(j,k) = sum(delta_term_a3.alt(:,j,k));
 
-dtheta_dz_1.sea(j,k) = (1/(2*A1*G)) * (q01_sea*(sum_term_a1(j,k)) + (q01_sea-q02_sea)*(caps.y_low_c - caps.y_upp_c)/spar.t + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.sea(j,k)) + ((Sx.sea(j,k)*Ixy-Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.sea(j,k)));
-dtheta_dz_1.alt(j,k) = (1/(2*A1*G)) * (q01_sea*(sum_term_a1(j,k)) + (q01_alt-q02_alt)*(caps.y_low_c - caps.y_upp_c)/spar.t + ((Sy.alt(j,k)*Ixy - Sx.alt(j,k)*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.alt(j,k)) + ((Sx.alt(j,k)*Ixy-Sy.alt(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.alt(j,k)));
+dtheta_dz_1.sea(j,k) = (1/(2*A1*G)) * (q01_sea(j,k)*(sum_term_a1(j,k)) + (q01_sea(j,k)-q02_sea(j,k))*(caps.y_low_c(1) - caps.y_upp_c(1))/spar.t + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.sea(j,k)) + ((Sx.sea(j,k)*Ixy-Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.sea(j,k)));
+dtheta_dz_1.alt(j,k) = (1/(2*A1*G)) * (q01_sea(j,k)*(sum_term_a1(j,k)) + (q01_alt(j,k)-q02_alt(j,k))*(caps.y_low_c(1) - caps.y_upp_c(1))/spar.t + ((Sy.alt(j,k)*Ixy - Sx.alt(j,k)*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.alt(j,k)) + ((Sx.alt(j,k)*Ixy-Sy.alt(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.alt(j,k)));
 
 counter = 1;
 for i = 1:spar.i_CCW(2)-1 %top rear skin
@@ -94,7 +94,7 @@ for i = 1:spar.i_CCW(2)-1 %top rear skin
     delta_term_b3.alt(i,j,k) = Booms.alt(i,j,k) * y(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.t;
     counter = counter + 1;
 end
-for i = spar.i_CCW(3):length(x) %bottom rear skin
+for i = spar.i_CCW(3):length(x)-1 %bottom rear skin
     delta_term_b1(counter,j,k) = (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.t;
     delta_term_b2.sea(counter,j,k) = Booms.sea(i,j,k) * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.t;
     delta_term_b2.alt(counter,j,k) = Booms.alt(i,j,k) * x(i) * (((x(i+1)-x(i))^2 + (y(i+1) - y(i))^2)^0.5)/skin.t;
@@ -109,39 +109,39 @@ sum_term_b2.alt(j,k) = sum(delta_term_b2.alt(:,j,k));
 sum_term_b3.sea(j,k) = sum(delta_term_b3.sea(:,j,k));
 sum_term_b3.alt(j,k) = sum(delta_term_b3.alt(:,j,k));
 
-dtheta_dz_2.sea(j,k) = q02_sea*(sum_term_b1(j,k)) + (q02_sea-q01_sea)*(caps.y_upp_c-caps.y_low_c)/spar.t + q02_sea*(caps.y_low_c - caps.y_upp_c)/(spar.t) + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.sea(j,k)) + ((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.sea(j,k));
-dtheta_dz_2.alt(j,k) = q02_alt*(sum_term_b1(j,k)) + (q02_alt-q01_alt)*(caps.y_upp_c-caps.y_low_c)/spar.t + q02_alt*(caps.y_low_c - caps.y_upp_c)/(spar.t) + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.alt(j,k)) + ((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.alt(j,k));
+dtheta_dz_2.sea(j,k) = q02_sea(j,k)*(sum_term_b1(j,k)) + (q02_sea(j,k)-q01_sea(j,k))*(caps.y_upp_c(1)-caps.y_low_c(1))/spar.t + q02_sea(j,k)*(caps.y_low_c(1) - caps.y_upp_c(1))/(spar.t) + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.sea(j,k)) + ((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.sea(j,k));
+dtheta_dz_2.alt(j,k) = q02_alt(j,k)*(sum_term_b1(j,k)) + (q02_alt(j,k)-q01_alt(j,k))*(caps.y_upp_c(1)-caps.y_low_c(1))/spar.t + q02_alt(j,k)*(caps.y_low_c(1) - caps.y_upp_c(1))/(spar.t) + ((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*(sum_term_b2.alt(j,k)) + ((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_b3.alt(j,k));
 
 % Equating dtheta_dz_1 and _2
 eq2.sea(j,k) = dtheta_dz_2.sea(j,k) - dtheta_dz_1.sea(j,k);
 eq2.alt(j,k) = dtheta_dz_2.alt(j,k) - dtheta_dz_1.alt(j,k);
 
 %% Solve
-[q01.sea,q02.sea] = solve(eq1.sea(j,k)==0,eq2.sea(j,k)==0);
-[q01.alt,q02.alt] = solve(eq1.alt(j,k)==0,eq2.alt(j,k)==0);
+[q01.sea(j,k),q02.sea(j,k)] = solve(eq1.sea(j,k)==0,eq2.sea(j,k)==0);
+[q01.alt(j,k),q02.alt(j,k)] = solve(eq1.alt(j,k)==0,eq2.alt(j,k)==0);
 disp(q01_alt);
 
 %% Shear Flow and Shear Stress Results
 for i = 1:spar.i_CCW(2)-1
-    q.sea(i,j,k) = qb.sea(i,j,k) + q02.sea;
-    q.alt(i,j,k) = qb.alt(i,j,k) + q02.alt;
+    q.sea(i,j,k) = qb.sea(i,j,k) + q02.sea(j,k);
+    q.alt(i,j,k) = qb.alt(i,j,k) + q02.alt(j,k);
     tau.sea(i,j,k) = q.sea(i,j,k) / skin.t;
     tau.alt(i,j,k) = q.alt(i,j,k) / skin.t;
 end
 for i = spar.i_CCW(2):spar.i_CCW(3)-1
-    q.sea(i,j,k) = qb.sea(i,j,k) + q01.sea;
-    q.alt(i,j,k) = qb.alt(i,j,k) + q01.alt;
+    q.sea(i,j,k) = qb.sea(i,j,k) + q01.sea(j,k);
+    q.alt(i,j,k) = qb.alt(i,j,k) + q01.alt(j,k);
     tau.sea(i,j,k) = q.sea(i,j,k) / skin.t;
     tau.alt(i,j,k) = q.alt(i,j,k) / skin.t;
 end
 for i = spar.i_CCW(3):length(x)
-    q.sea(i,j,k) = qb.sea(i,j,k) + q01.sea;
-    q.alt(i,j,k) = qb.alt(i,j,k) + q01.alt;
+    q.sea(i,j,k) = qb.sea(i,j,k) + q01.sea(j,k);
+    q.alt(i,j,k) = qb.alt(i,j,k) + q01.alt(j,k);
     tau.sea(i,j,k) = q.sea(i,j,k) / skin.t;
     tau.alt(i,j,k) = q.alt(i,j,k) / skin.t;
 end
-    q.sea_spar(j,k) = q01.sea - q02.sea;
-    q.alt_spar(j,k) = q01.alt - q02.alt;
+    q.sea_spar(j,k) = q01.sea(j,k) - q02.sea(j,k);
+    q.alt_spar(j,k) = q01.alt(j,k) - q02.alt(j,k);
     tau.sea_spar(j,k) = q.sea_spar / spar.t;
     tau.alt_spar(j,k) = q.alt_spar / spar.t;
 
