@@ -18,17 +18,19 @@ rho_sea = 1.225;            % kg/m^3        density of air at sea level
 rho_alt = 0.78205;          % kg/m^3      density of air at 14,600 ft
 theta = 30;                 % deg
 alpha = 10;                 % deg
-G = 28E+9;                  % Pa
+
 
 %% Wing Geometry
 b = 10.82;                  % m        span
 c = 1.5;                    % m        chord
 S = b*c;                    % m^2      surface area
 m = 1100;                   % kg       aircraft maximum gross mass
-W = 1100*9.8;               % N        aircraft maximum gross weight
+W = m*9.8;               % N        aircraft maximum gross weight
 AR = b^2/S;                 %          aspect ratio
 e = 0.79;                   %          oswald efficiency
 z = 0:0.01:b/2;             % m        semi span vector
+z_intervals = 5;
+dz = round(length(z)/z_intervals);
 
 %% Aerodynamic Data
 CD0_sea = 0.00562;
@@ -83,16 +85,22 @@ structure.st = 0.0025;                % m   spar thickness
 structure.bl = 0.012;                 % m   bracket height
 structure.bt = 0.0025;                % m   bracket thickness`
 structure.E  = 70E9;                  % Pa  Young's Modulus
-
+structure.G  = 28E9;                  % Pa
 %wing = build_wing(c,structure,theta); % Build wing
 %[wing_section_centroid, structure, component_moments] = calculate_geometry(wing,c,structure,theta);
 
 %% Functions
 [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil();
+disp('build_airfoil() complete');
 [L_distribution, D_distribution] = LD_plots();
+disp('LD_plots() complete');
 [Sx, Sy, Mx, My, sigma_z, wx_sea] = SMsigma_plots(alpha, x, y, z, Ixx, Iyy, Ixy, L_distribution, D_distribution);
-%[u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);
-%[Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar);
-%[Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar);
-%[q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, G, Term_2, M_0, x_quarterchord, skin, str, caps, spar); %% need M_0
+disp('SMsigma_plots complete');
+[u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);
+disp('uv_plots complete');
+[Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar, dz);
+disp('Booms complete');
+[Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar, dz);
+disp('Shear_Flow_Basic complete');
+[q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, structure, Term_2, M_0, x_quarterchord, skin, str, caps, spar, dz); %% need M_0
 

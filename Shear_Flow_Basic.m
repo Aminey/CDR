@@ -1,4 +1,4 @@
-function [Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar)
+function [Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar, dz)
 
 %% Initialize
 
@@ -34,7 +34,7 @@ A1 = sum(delta_A1);
 A2 = A_total - A1;
 %% BASIC SHEAR FLOW
 for k = 1:5
-    for j = 1:length(z)
+    for j = 1:dz:length(z)
         
             qb.sea(1,j,k) = (((Sx.sea(j,k)*Ixx - Sy.sea(j,k)*Ixy)/(Ixx*Iyy - Ixy))*Booms.sea(1,j,k)*x(i)) -...
                                          (((Sy.sea(j,k)*Iyy -Sx.sea(j,k)*Ixy)/(Ixx*Iyy-Ixy^2))*Booms.sea(1,j,k)*y(i));

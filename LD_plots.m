@@ -7,7 +7,7 @@ function [L_distribution, D_distribution] = LD_plots()
 % airfoil_y = xlsread('NACA 2415.xlsx','B1:B99');
 
 %constants
-g = 9.8; %m/s^2                  gravity
+g = 9.8; %m/s^2                 gravity
 rho_sea = 1.225; %kg/m^3        density of air at sea level
 rho_alt = 0.78205; %kg/m^3      density of air at 14,600 ft
 e = 0.79; %                     oswald efficiency

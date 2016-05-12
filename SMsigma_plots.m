@@ -28,8 +28,10 @@ My.sea = zeros(length(z),5);
 Mx.alt = zeros(length(z),5);
 My.alt = zeros(length(z),5);
 
-sigma_z.alt = zeros(length(z),5);
-sigma_z.sea = zeros(length(z),5);
+sigma_z.alt = zeros(length(x),length(z),5);
+sigma_z.sea = zeros(length(x),length(z),5);
+sigma_plot.alt = zeros(length(x),5);
+sigma_plot.sea = zeros(length(x),5);
 
 %transform forces
 for i = 1:5
@@ -159,5 +161,23 @@ for k = 1:5
         end
     end    
 end
+
+    for i = 1:length(x)
+        sigma_plot.alt(i) = sigma_z.alt(i,1,1);
+        sigma_plot.sea(i) = sigma_z.sea(i,1,1);
+    end
+
+
+figure;
+plot(x,sigma_plot.alt);
+legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
+xlabel('Chordwise Length (m)');
+ylabel('Sigma_zz at altitude (N/m^2');
+
+figure;
+plot(x,sigma_plot.sea);
+legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
+xlabel('Chordwise Length (m)');
+ylabel('Sigma_zz at sea level (N/m^2');
 
 
