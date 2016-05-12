@@ -28,7 +28,7 @@ m = 1100;                   % kg       aircraft maximum gross mass
 W = 1100*9.8;               % N        aircraft maximum gross weight
 AR = b^2/S;                 %          aspect ratio
 e = 0.79;                   %          oswald efficiency
-z = 0:1:b/2;             % m        semi span vector
+z = 0:0.1:b/2;             % m        semi span vector
 
 %% Aerodynamic Data
 CD0_sea = 0.00562;
@@ -91,8 +91,8 @@ structure.E  = 70E9;                  % Pa  Young's Modulus
 [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil();
 [L_distribution, D_distribution] = LD_plots();
 [Sx, Sy, Mx, My, sigma_z] = SMsigma_plots(alpha, x, y, z, Ixx, Iyy, Ixy, L_distribution, D_distribution);
-[u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);
-[Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar);
-[Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar);
-[q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, G, Term_2, M_0, x_quarterchord, skin, str, caps, spar); %% need M_0
+%[u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);
+%[Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar);
+%[Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar);
+%[q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, G, Term_2, M_0, x_quarterchord, skin, str, caps, spar); %% need M_0
 
