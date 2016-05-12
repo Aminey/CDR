@@ -1,4 +1,4 @@
-function [q, tau] = Shear_Flow_0(x, y, z, Booms, Sx, Sy, A1, A2, qb, G, Term_2, M_0, x_quarterchord, skin, str, caps, spar);
+function [q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, G, Term_2, M_0, x_quarterchord, skin, str, caps, spar);
 
 % check what thickness should be
 
@@ -30,17 +30,17 @@ sum_term_b2.alt = zeros(length(z),5);
 sum_term_b3.sea = zeros(length(z),5);
 sum_term_b3.alt = zeros(length(z),5);
 
-dtheta_dz_1.sea = zeros(length(z),5);
-dtheta_dz_1.alt = zeros(length(z),5);
+dtheta_dz_1.sea = sym(zeros(length(z),5));
+dtheta_dz_1.alt = sym(zeros(length(z),5));
 
-dtheta_dz_2.sea = zeros(length(z),5);
-dtheta_dz_2.alt = zeros(length(z),5);
+dtheta_dz_2.sea = sym(zeros(length(z),5));
+dtheta_dz_2.alt = sym(zeros(length(z),5));
 
-eq1.sea = zeros(length(z),5);
-eq1.alt = zeros(length(z),5);
+eq1.sea = sym(zeros(length(z),5));
+eq1.alt = sym(zeros(length(z),5));
 
-eq2.sea = zeros(length(z),5);
-eq2.alt = zeros(length(z),5);
+eq2.sea = sym(zeros(length(z),5));
+eq2.alt = sym(zeros(length(z),5));
 
 q.sea = zeros(length(x),length(z),5);
 q.alt = zeros(length(x),length(z),5);
@@ -63,7 +63,7 @@ syms q02_sea;
 %% EQ 1
 eq1.sea(j,k) = M_0.sea(k) + Sy.sea(j,k)*(x_quarterchord) - Sx.sea(j,k)*(0) - (2*A1*q01_sea + 2*A2*q02_sea + Term_2.sea(j,k));
 eq1.alt(j,k) = M_0.alt(k) + Sy.alt(j,k)*(x_quarterchord) - Sx.alt(j,k)*(0) - (2*A1*q01_alt + 2*A2*q02_alt + Term_2.alt(j,k));
-
+disp(q01_alt);
 %% EQ 2
 
 % dtheta_dz_1
@@ -119,6 +119,7 @@ eq2.alt(j,k) = dtheta_dz_2.alt(j,k) - dtheta_dz_1.alt(j,k);
 %% Solve
 [q01.sea,q02.sea] = solve(eq1.sea(j,k)==0,eq2.sea(j,k)==0);
 [q01.alt,q02.alt] = solve(eq1.alt(j,k)==0,eq2.alt(j,k)==0);
+disp(q01_alt);
 
 %% Shear Flow and Shear Stress Results
 for i = 1:spar.i_CCW(2)-1
