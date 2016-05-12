@@ -28,7 +28,7 @@ m = 1100;                   % kg       aircraft maximum gross mass
 W = 1100*9.8;               % N        aircraft maximum gross weight
 AR = b^2/S;                 %          aspect ratio
 e = 0.79;                   %          oswald efficiency
-z = 0:0.1:b/2;             % m        semi span vector
+z = 0:1:b/2;             % m        semi span vector
 
 %% Aerodynamic Data
 CD0_sea = 0.00562;

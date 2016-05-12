@@ -42,6 +42,11 @@ eq1.alt = sym(zeros(length(z),5));
 eq2.sea = sym(zeros(length(z),5));
 eq2.alt = sym(zeros(length(z),5));
 
+q01.sea = sym(zeros(length(z),5));
+q02.sea = sym(zeros(length(z),5));
+q01.alt = sym(zeros(length(z),5));
+q02.alt = sym(zeros(length(z),5));
+
 q.sea = zeros(length(x),length(z),5);
 q.alt = zeros(length(x),length(z),5);
 q.sea_spar = zeros(length(z),5);
@@ -145,8 +150,8 @@ for i = spar.i_CCW(3):length(x)
 end
     q.sea_spar(j,k) = q01.sea(j,k) - q02.sea(j,k);
     q.alt_spar(j,k) = q01.alt(j,k) - q02.alt(j,k);
-    tau.sea_spar(j,k) = q.sea_spar / spar.t;
-    tau.alt_spar(j,k) = q.alt_spar / spar.t;
+    tau.sea_spar(j,k) = q.sea_spar(j,k) / spar.t;
+    tau.alt_spar(j,k) = q.alt_spar(j,k) / spar.t;
 
 end
 end

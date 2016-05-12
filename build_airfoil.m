@@ -7,7 +7,7 @@ m = 0.02;               %
 p = 0.4;                % max camber
 t = 0.15;               % max thickness 
 c = 1.5;                % chord length
-nx = 500;               % number of increments
+nx = 200;               % number of increments
 dx = c/nx;  
 x = 0:dx:c;             % even spacing
 
@@ -17,9 +17,9 @@ spar.t = 0.0025;                               % thickness of spar
 str.A_upp = 5E-6;                            % area of each upper stringer
 str.A_low = 5E-6;                            % area of each lower stringer
 caps.A = 1E-5;                                % area of spar caps
-spar.x = x(120);                                                      % choose x location of spar
-str.x_upp = [x(10), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of upper stringers
-str.x_low = [x(10), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of lower stringers
+spar.x = x(50);                                                      % choose x location of spar
+str.x_upp = [x(2), x(5), x(10), x(20), x(25),x(30), x(35)];     % choose x locations of upper stringers
+str.x_low = [x(1), x(5), x(15), x(20), x(25),x(30), x(35)];     % choose x locations of lower stringers
 
 %% Create Airfoil from equation
 yc = zeros(1,nx+1);
