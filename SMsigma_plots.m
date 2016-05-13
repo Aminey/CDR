@@ -180,4 +180,6 @@ legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best
 xlabel('Chordwise Length (m)');
 ylabel('Sigma_zz at sea level (N/m^2');
 
+disp('SMsigma_plots complete');
+
 

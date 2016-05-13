@@ -251,6 +251,8 @@ y_c = y_CCW - Cy;
 
 x_quarterchord = c/4 - Cx;
 
+disp('build_airfoil() complete');
+
 %% coordiante transformation: new origin at centroid
 %
 %

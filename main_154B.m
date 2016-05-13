@@ -91,16 +91,10 @@ structure.G  = 28E9;                  % Pa
 
 %% Functions
 [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil();
-disp('build_airfoil() complete');
 [L_distribution, D_distribution] = LD_plots();
-disp('LD_plots() complete');
 [Sx, Sy, Mx, My, sigma_z, wx_sea] = SMsigma_plots(alpha, x, y, z, Ixx, Iyy, Ixy, L_distribution, D_distribution);
-disp('SMsigma_plots complete');
 [u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);
-disp('uv_plots complete');
 [Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar, dz);
-disp('Booms complete');
 [Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar, dz);
-disp('Shear_Flow_Basic complete');
 [q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, structure, Term_2, M_0, x_quarterchord, skin, str, caps, spar, dz); %% need M_0
 

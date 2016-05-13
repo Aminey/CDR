@@ -78,3 +78,5 @@ plot(z,v.alt);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
 ylabel('Displacement v, at altitude (m)');
+
+disp('uv_plots complete');

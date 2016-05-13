@@ -133,3 +133,5 @@ legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best
 xlabel('Spanwise Length (m)');
 ylabel('Drag Force at Altitude (N/m)'); 
 
+disp('LD_plots() complete');
+
