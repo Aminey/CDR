@@ -129,8 +129,6 @@ eq2.alt(j,k) = dtheta_dz_2.alt(j,k) - dtheta_dz_1.alt(j,k);
 %% Solve
 [q01.sea(j,k),q02.sea(j,k)] = solve([eq1.sea(j,k)==0,eq2.sea(j,k)==0], [q01_sea,q02_sea]);
 [q01.alt(j,k),q02.alt(j,k)] = solve([eq1.alt(j,k)==0,eq2.alt(j,k)==0], [q01_alt,q02_alt]);
-disp(count);
-count = count + 1;
 
 %% Shear Flow and Shear Stress Results
 for i = 1:spar.i_CCW(2)-1
