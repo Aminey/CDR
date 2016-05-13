@@ -17,6 +17,7 @@ g = 9.8;                    % m/s^2                  gravity
 rho_sea = 1.225;            % kg/m^3        density of air at sea level
 rho_alt = 0.78205;          % kg/m^3      density of air at 14,600 ft
 mu_sea = 1.789E-5;          % Pa*s
+mu_alt = 2.4905E-5;         % Pa*s
 theta = 30;                 % deg
 alpha = 10;                 % deg
 
@@ -49,10 +50,10 @@ C_L0_sea = (C_La_sea/C_la_sea)*C_l0_sea;
 C_La_alt = C_la_alt/(1+C_la_alt/(AR*pi*e));     %1/rad
 C_L0_alt = (C_La_alt/C_la_alt)*C_l0_alt;
 
-Cm.sea = [];
-Cm.alt = [];
+Cm.sea = [-.021 -.054 -.055 -.055 -.055];   %first two terms are legit. the rest are bs
+Cm.alt = [-.055 -.055 -.055 -.055 -.055];   % all bs
 
-M_0.sea = [1 1 1 1 1];                      %replace
+M_0.sea = 0.5*rho_sea*v_sea.^2;                      %replace
 M_0.alt = [1 1 1 1 1];                      %replace
 
 %critical flight condition loading
@@ -61,6 +62,9 @@ n_sea = [4.4 4.4 -1.76 -1.82 -1.117];
 v_sea = [59.7 95.8 39.9 63.9 95.83];
 n_alt = [4.4 4.4 -1.76 -2.103 -1.33];
 v_alt = [75.9 95.8 51.3 63.9 95.83];
+
+Re.sea = rho_sea*v_sea*c/mu_sea;
+Re.alt = rho_alt*v_alt*c/mu_sea;
 
 i = 1; %select condition
 
@@ -94,11 +98,11 @@ structure.G  = 28E9;                  % Pa
 %[wing_section_centroid, structure, component_moments] = calculate_geometry(wing,c,structure,theta);
 
 %% Functions
-[x, y, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil();
-[L_distribution, D_distribution] = LD_plots();
-[Sx, Sy, Mx, My, sigma_z, wx_sea] = SMsigma_plots(alpha, x, y, z, Ixx, Iyy, Ixy, L_distribution, D_distribution);
-[u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);
-[Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar, dz);
-[Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar, dz);
-[q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, structure, Term_2, M_0, x_quarterchord, skin, str, caps, spar, dz); %% need M_0
-
+% [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil();
+% [L_distribution, D_distribution] = LD_plots();
+% [Sx, Sy, Mx, My, sigma_z, wx_sea] = SMsigma_plots(alpha, x, y, z, Ixx, Iyy, Ixy, L_distribution, D_distribution);
+% [u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);
+% [Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar, dz);
+% [Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar, dz);
+% [q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, structure, Term_2, M_0, x_quarterchord, skin, str, caps, spar, dz); %% need M_0
+% 
