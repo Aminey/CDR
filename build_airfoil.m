@@ -235,8 +235,8 @@ for i = 1:length(x)
     yU_CCW(i) = yU(end - i + 1);
     yL_CCW(i) = yL(end - i + 1);
 end
-y_CCW = [yU_CCW yL_CCW(end:-1:2)];         % the 2:end gets rid of the extra initial 0 value
-x_CCW = [x_CCW x(2:end)];
+y_CCW = [yU_CCW yL_CCW(end:-1:1)];         
+x_CCW = [x_CCW x(1:end)];
 
 spar.i_CCW = length(x) - spar.i + 1;
 spar.i_CCW = sort([spar.i_CCW, (length(x) + spar.i - 1)]); 
