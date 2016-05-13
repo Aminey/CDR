@@ -18,8 +18,8 @@ str.A_upp = 5E-6;                            % area of each upper stringer
 str.A_low = 5E-6;                            % area of each lower stringer
 caps.A = 1E-5;                                % area of spar caps
 spar.x = x(125);                                                      % choose x location of spar
-str.x_upp = [x(10), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of upper stringers
-str.x_low = [x(10), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of lower stringers
+str.x_upp = [x(1), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of upper stringers
+str.x_low = [x(1), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of lower stringers
 
 %% Create Airfoil from equation
 yc = zeros(1,nx+1);

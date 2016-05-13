@@ -99,6 +99,10 @@ for i = 1:5;
         My.alt(j-1,i) = My.alt(j,i) + My_alt(j,i);
     end
 end
+Sx.sea = -Sx.sea;
+Sx.alt = -Sx.alt;
+Sy.sea = -Sy.sea;
+Sy.alt = -Sy.alt;
 
 figure;
 plot(z,Sx.sea);
