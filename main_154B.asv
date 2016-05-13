@@ -16,6 +16,7 @@ clc;
 g = 9.8;                    % m/s^2                  gravity
 rho_sea = 1.225;            % kg/m^3        density of air at sea level
 rho_alt = 0.78205;          % kg/m^3      density of air at 14,600 ft
+mu_sea = 1.789E-5;          % Pa*s
 theta = 30;                 % deg
 alpha = 10;                 % deg
 
@@ -25,12 +26,12 @@ b = 10.82;                  % m        span
 c = 1.5;                    % m        chord
 S = b*c;                    % m^2      surface area
 m = 1100;                   % kg       aircraft maximum gross mass
-W = 1100*9.8;               % N        aircraft maximum gross weight
+W = m*9.8;               % N        aircraft maximum gross weight
 AR = b^2/S;                 %          aspect ratio
 e = 0.79;                   %          oswald efficiency
 z = 0:0.01:b/2;             % m        semi span vector
 z_intervals = 5;
-dz = length(z)/z_intervals;
+dz = round(length(z)/z_intervals);
 
 %% Aerodynamic Data
 CD0_sea = 0.00562;
@@ -47,6 +48,9 @@ C_La_sea = C_la_sea/(1+C_la_sea/(AR*pi*e));     %1/rad
 C_L0_sea = (C_La_sea/C_la_sea)*C_l0_sea;
 C_La_alt = C_la_alt/(1+C_la_alt/(AR*pi*e));     %1/rad
 C_L0_alt = (C_La_alt/C_la_alt)*C_l0_alt;
+
+Cm.sea = [];
+Cm.alt = [];
 
 M_0.sea = [1 1 1 1 1];                      %replace
 M_0.alt = [1 1 1 1 1];                      %replace
@@ -91,16 +95,10 @@ structure.G  = 28E9;                  % Pa
 
 %% Functions
 [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil();
-disp('build_airfoil() complete');
 [L_distribution, D_distribution] = LD_plots();
-disp('LD_plots() complete');
 [Sx, Sy, Mx, My, sigma_z, wx_sea] = SMsigma_plots(alpha, x, y, z, Ixx, Iyy, Ixy, L_distribution, D_distribution);
-disp('SMsigma_plots complete');
 [u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);
-disp('uv_plots complete');
 [Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar, dz);
-disp('Booms complete');
 [Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar, dz);
-disp('Shear_Flow_Basic complete');
 [q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, structure, Term_2, M_0, x_quarterchord, skin, str, caps, spar, dz); %% need M_0
 
