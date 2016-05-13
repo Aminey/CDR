@@ -92,10 +92,10 @@ for i = 1:5;
         Mx_alt(j,i) = (z(j)-z(j-1)) * (Sy_alt(j,i) + Sy_alt(j-1,i))/2;
         Mx.alt(j-1,i) = Mx.alt(j,i) + Mx_alt(j,i);
         
-        My_sea(j,i) = (z(j)-z(j-1)) * (Sx_sea(j,i) + Sx_sea(j-1,i))/2;
+        My_sea(j,i) = -(z(j)-z(j-1)) * (Sx_sea(j,i) + Sx_sea(j-1,i))/2;
         My.sea(j-1,i) = My.sea(j,i) + My_sea(j,i);
         
-        My_alt(j,i) = (z(j)-z(j-1)) * (Sx_alt(j,i) + Sx_alt(j-1,i))/2;
+        My_alt(j,i) = -(z(j)-z(j-1)) * (Sx_alt(j,i) + Sx_alt(j-1,i))/2;
         My.alt(j-1,i) = My.alt(j,i) + My_alt(j,i);
     end
 end
