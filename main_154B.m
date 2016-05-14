@@ -87,11 +87,11 @@ alpha.alt = [13.42583,7.63933,-15.72596,-32.8453936,-22.294760]; %degrees
 
 %% Structural Elements and Parameters
 %box beam parameters
-structure.kt = 0.001016;              % m   skin thickness
-structure.sh = 0.08;                  % m
-structure.st = 0.0025;                % m   spar thickness
-structure.bl = 0.012;                 % m   bracket height
-structure.bt = 0.0025;                % m   bracket thickness`
+% structure.kt = 0.001016;              % m   skin thickness
+% structure.sh = 0.08;                  % m
+% structure.st = 0.0025;                % m   spar thickness
+% structure.bl = 0.012;                 % m   bracket height
+% structure.bt = 0.0025;                % m   bracket thickness`
 structure.E  = 70E9;                  % Pa  Young's Modulus
 structure.G  = 28E9;                  % Pa
 %wing = build_wing(c,structure,theta); % Build wing
