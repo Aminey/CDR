@@ -31,6 +31,7 @@ My.alt = zeros(length(z),5);
 sigma_z.alt = zeros(length(z),5);
 sigma_z.sea = zeros(length(z),5);
 
+%transform forces
 for i = 1:5
     %axial
     wx_sea(1:length(z),i) = -L_distribution.sea(1:length(z),i)*sind(alpha.sea(i))+D_distribution.sea(1:length(z),i)*cosd(alpha.sea(i));
@@ -45,28 +46,24 @@ end
 
 %% Plots
 figure; 
-subplot(1,2,1);
 plot(z,wx_sea);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
 ylabel('W_x Force at Sea Level (N/m)');
 
-% figure; 
-subplot(1,2,2);
+figure; 
+plot(z,wy_sea);
+legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
+xlabel('Spanwise Length (m)');
+ylabel('W_y Force at Sea Level (N/m)');
+
+figure; 
 plot(z,wx_alt);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
 ylabel('W_x Force at Service Ceiling (N/m)');
 
 figure; 
-subplot(1,2,1);
-plot(z,wy_sea);
-legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
-xlabel('Spanwise Length (m)');
-ylabel('W_y Force at Sea Level (N/m)');
-
-% figure; 
-subplot(1,2,2);
 plot(z,wy_alt);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
@@ -87,77 +84,63 @@ for i = 1:5;
         Sy.alt(j-1,i) = Sy.alt(j,i) + Sy_alt(j,i);
         %
         %
-
-    end
-end
-
-for i = 1:5;
-    for j = length(z):-1:2;
-        Mx_sea(j,i) = (z(j)-z(j-1))*(Sy.sea(j,i) + Sy.sea(j-1,i))/2;
+        Mx_sea(j,i) = -(z(j)-z(j-1)) * (Sy_sea(j,i) + Sy_sea(j-1,i))/2;
         Mx.sea(j-1,i) = Mx.sea(j,i) + Mx_sea(j,i);
         
-        Mx_alt(j,i) = (z(j)-z(j-1))*(Sy.alt(j,i) + Sy.alt(j-1,i))/2;
+        Mx_alt(j,i) = -(z(j)-z(j-1)) * (Sy_alt(j,i) + Sy_alt(j-1,i))/2;
         Mx.alt(j-1,i) = Mx.alt(j,i) + Mx_alt(j,i);
         
-        My_sea(j,i) = (z(j)-z(j-1)) * (Sx.sea(j,i) + Sx.sea(j-1,i))/2;
+        My_sea(j,i) = -(z(j)-z(j-1)) * (Sx_sea(j,i) + Sx_sea(j-1,i))/2;
         My.sea(j-1,i) = My.sea(j,i) + My_sea(j,i);
         
-        My_alt(j,i) = (z(j)-z(j-1)) * (Sx.alt(j,i) + Sx.alt(j-1,i))/2;
+        My_alt(j,i) = -(z(j)-z(j-1)) * (Sx_alt(j,i) + Sx_alt(j-1,i))/2;
         My.alt(j-1,i) = My.alt(j,i) + My_alt(j,i);
     end
 end
 
 figure;
-subplot(1,2,1);
 plot(z,Sx.sea);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
 ylabel('Force Sx at Sea Level (N)');
 
-% figure;
-subplot(1,2,2);
+figure;
+plot(z,Sy.sea);
+legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
+xlabel('Spanwise Length (m)');
+ylabel('Force Sy at Sea Level (N)');
+
+figure;
+plot(z,Mx.sea);
+legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
+xlabel('Spanwise Length (m)');
+ylabel('Moment Mx at Sea Level (N*m)');
+
+figure;
+plot(z,My.sea);
+legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
+xlabel('Spanwise Length (m)');
+ylabel('Moment My at Sea Level (N*m)');
+
+figure;
 plot(z,Sx.alt);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
 ylabel('Force Sx at Altitude (N)');
 
 figure;
-subplot(1,2,1);
-plot(z,Sy.sea);
-legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
-xlabel('Spanwise Length (m)');
-ylabel('Force Sy at Sea Level (N)');
-
-% figure;
-subplot(1,2,2);
 plot(z,Sy.alt);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
 ylabel('Force Sy at Altitude (N)');
 
 figure;
-subplot(1,2,1);
-plot(z,Mx.sea);
-legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
-xlabel('Spanwise Length (m)');
-ylabel('Moment Mx at Sea Level (N*m)');
-
-% figure;
-subplot(1,2,2);
 plot(z,Mx.alt);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
 ylabel('Moment Mx at Altitude (N*m)');
 
 figure;
-subplot(1,2,1);
-plot(z,My.sea);
-legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
-xlabel('Spanwise Length (m)');
-ylabel('Moment My at Sea Level (N*m)');
-
-% figure;
-subplot(1,2,2);
 plot(z,My.alt);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
@@ -165,6 +148,7 @@ ylabel('Moment My at Altitude (N*m)');
 
 
 %% Sigma Z's
+
 for k = 1:5
     for j = 1:length(z) 
         for i = 1:length(x)
