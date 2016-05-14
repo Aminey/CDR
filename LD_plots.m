@@ -7,7 +7,7 @@ function [L_distribution, D_distribution] = LD_plots()
 % airfoil_y = xlsread('NACA 2415.xlsx','B1:B99');
 
 %constants
-g = 9.8; %m/s^2                  gravity
+g = 9.8; %m/s^2                 gravity
 rho_sea = 1.225; %kg/m^3        density of air at sea level
 rho_alt = 0.78205; %kg/m^3      density of air at 14,600 ft
 e = 0.79; %                     oswald efficiency
@@ -103,18 +103,18 @@ for i = 1:5
     %altitude sea level
     for j = 1:length(z)
         if z(j) < 0.9*b/2
-            D_distribution.sea(j,i) = (0.5*rho_sea*v_sea(i)^2*S*(CD0_sea+CL_sea(i)^2/(pi*AR*e)))/2;
+            D_distribution.sea(j,i) = (0.5*rho_sea*v_sea(i)^2*S*(CD0_sea+CL_sea(i)^2/(pi*AR*e)))/b;
         else
-            D_distribution.sea(j,i) = (1.2*0.5*rho_sea*v_sea(i)^2*S*(CD0_sea+CL_sea(i)^2/(pi*AR*e)))/2;
+            D_distribution.sea(j,i) = (1.2*0.5*rho_sea*v_sea(i)^2*S*(CD0_sea+CL_sea(i)^2/(pi*AR*e)))/b;
         end
     end
 
     %altitude 14600 ft
     for j = 1:length(z)
         if z(j) < 0.9*b/2
-            D_distribution.alt(j,i) = (0.5*rho_alt*v_alt(i)^2*S*(CD0_alt+CL_alt(i)^2/(pi*AR*e)))/2;
+            D_distribution.alt(j,i) = (0.5*rho_alt*v_alt(i)^2*S*(CD0_alt+CL_alt(i)^2/(pi*AR*e)))/b;
         else
-            D_distribution.alt(j,i) = (1.2*0.5*rho_alt*v_alt(i)^2*S*(CD0_alt+CL_alt(i)^2/(pi*AR*e)))/2;
+            D_distribution.alt(j,i) = (1.2*0.5*rho_alt*v_alt(i)^2*S*(CD0_alt+CL_alt(i)^2/(pi*AR*e)))/b;
         end
     end
 end
@@ -132,4 +132,6 @@ plot(z,D_distribution.alt);
 legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Spanwise Length (m)');
 ylabel('Drag Force at Altitude (N/m)'); 
+
+disp('LD_plots complete');
 

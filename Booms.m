@@ -1,11 +1,11 @@
-function [Booms] = Booms(x,y,z,sigma_z,skin, str, caps, spar)
+function [Booms] = Booms(x,y,z,sigma_z,skin, str, caps, spar, dz)
 
 Booms.alt = zeros(length(x),length(z),5);
 Booms.sea = zeros(length(x),length(z),5);
 str.A = str.A_upp;
 
 for k = 1:5
-    for j = 1:length(z)    
+    for j = 1:dz:length(z)    
         for i = 2:length(x)-1
             dist_rear = ((x(i)+x(i-1))^2 + (y(i)+y(i-1))^2)^0.5;
             dist_fore = ((x(i)+x(i+1))^2 + (y(i)+y(i+1))^2)^0.5;
@@ -80,3 +80,5 @@ for k = 1:5
     end
     end
 end
+
+disp('Booms complete');
