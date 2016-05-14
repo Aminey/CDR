@@ -94,15 +94,20 @@ alpha.alt = [13.42583,7.63933,-15.72596,-32.8453936,-22.294760]; %degrees
 % structure.bt = 0.0025;                % m   bracket thickness`
 structure.E  = 70E9;                  % Pa  Young's Modulus
 structure.G  = 28E9;                  % Pa
+
+
+
+
 %wing = build_wing(c,structure,theta); % Build wing
 %[wing_section_centroid, structure, component_moments] = calculate_geometry(wing,c,structure,theta);
+
 
 %% Functions
 [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil();
 [L_distribution, D_distribution] = LD_plots();
 [Sx, Sy, Mx, My, sigma_z, wx_sea] = SMsigma_plots(alpha, x, y, z, Ixx, Iyy, Ixy, L_distribution, D_distribution);
 [u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);
-[Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar, dz);
-[Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar, dz);
-[q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, structure, Term_2, M_0, x_quarterchord, skin, str, caps, spar, dz); %% need M_0
+% [Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar, dz);
+% [Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar, dz);
+% [q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, structure, Term_2, M_0, x_quarterchord, skin, str, caps, spar, dz); %% need M_0
 

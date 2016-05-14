@@ -86,16 +86,16 @@ for i = 1:5;
         Sy.alt(j-1,i) = Sy.alt(j,i) + Sy_alt(j,i);
         %
         %
-        Mx_sea(j,i) = (z(j)-z(j-1)) * (Sy_sea(j,i) + Sy_sea(j-1,i))/2;
+        Mx_sea(j,i) = (z(j)-z(j-1)) * (Sy.sea(j,i) + Sy.sea(j-1,i))/2;
         Mx.sea(j-1,i) = Mx.sea(j,i) + Mx_sea(j,i);
         
-        Mx_alt(j,i) = (z(j)-z(j-1)) * (Sy_alt(j,i) + Sy_alt(j-1,i))/2;
+        Mx_alt(j,i) = (z(j)-z(j-1)) * (Sy.alt(j,i) + Sy.alt(j-1,i))/2;
         Mx.alt(j-1,i) = Mx.alt(j,i) + Mx_alt(j,i);
         
-        My_sea(j,i) = (z(j)-z(j-1)) * (Sx_sea(j,i) + Sx_sea(j-1,i))/2;
+        My_sea(j,i) = (z(j)-z(j-1)) * (Sx.sea(j,i) + Sx.sea(j-1,i))/2;
         My.sea(j-1,i) = My.sea(j,i) + My_sea(j,i);
         
-        My_alt(j,i) = (z(j)-z(j-1)) * (Sx_alt(j,i) + Sx_alt(j-1,i))/2;
+        My_alt(j,i) = (z(j)-z(j-1)) * (Sx.alt(j,i) + Sx.alt(j-1,i))/2;
         My.alt(j-1,i) = My.alt(j,i) + My_alt(j,i);
     end
 end
