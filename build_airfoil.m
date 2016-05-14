@@ -17,9 +17,9 @@ spar.t = 0.0025;                               % thickness of spar
 str.A_upp = 5E-6;                            % area of each upper stringer
 str.A_low = 5E-6;                            % area of each lower stringer
 caps.A = 1E-5;                                % area of spar caps
-spar.x = x(125);                                                      % choose x location of spar
-str.x_upp = [x(1), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of upper stringers
-str.x_low = [x(1), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of lower stringers
+spar.x = x(120);                                                      % choose x location of spar
+str.x_upp = [x(10), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of upper stringers
+str.x_low = [x(10), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of lower stringers
 
 %% Create Airfoil from equation
 yc = zeros(1,nx+1);
@@ -235,8 +235,8 @@ for i = 1:length(x)
     yU_CCW(i) = yU(end - i + 1);
     yL_CCW(i) = yL(end - i + 1);
 end
-y_CCW = [yU_CCW yL_CCW(end:-1:1)];         
-x_CCW = [x_CCW x(1:end)];
+y_CCW = [yU_CCW yL_CCW(2:end)];         % the 2:end gets rid of the extra initial 0 value
+x_CCW = [x_CCW x(2:end)];
 
 spar.i_CCW = length(x) - spar.i + 1;
 spar.i_CCW = sort([spar.i_CCW, (length(x) + spar.i - 1)]); 
@@ -250,8 +250,6 @@ x_c = x_CCW - Cx;
 y_c = y_CCW - Cy;
 
 x_quarterchord = c/4 - Cx;
-
-disp('build_airfoil complete');
 
 %% coordiante transformation: new origin at centroid
 %
