@@ -72,8 +72,8 @@ i = 1; %select condition
 % alpha.alt(4) = alpha.alt(4) - atand(15.24/63.9);
 % alpha.alt(5) = alpha.alt(5) - atand(7.62/95.8);
 
-alpha.sea = [13.90527,4.10748,-16.457656,-31.4285542,-21.488200]; %degrees
-alpha.alt = [13.42583,7.63933,-15.72596,-32.8453936,-22.294760]; %degrees
+alpha.sea = [13.905,4.107,-16.4576,-31.42855,-21.4882]; %degrees
+alpha.alt = [13.425,7.639,-15.726,-32.84539,-22.294]; %degrees
 
 %% Structural Elements and Parameters
 %box beam parameters
@@ -84,15 +84,20 @@ structure.bl = 0.012;                 % m   bracket height
 structure.bt = 0.0025;                % m   bracket thickness`
 structure.E  = 70E9;                  % Pa  Young's Modulus
 
-%wing = build_wing(c,structure,theta); % Build wing
-%[wing_section_centroid, structure, component_moments] = calculate_geometry(wing,c,structure,theta);
+% wing = build_wing(c,structure,theta); % Build wing
+% [wing_section_centroid, structure, component_moments] = calculate_geometry(wing,c,structure,theta);
+% Ixx = structure.inertias(1); 
+% Iyy = structure.inertias(2);
+% Ixy = structure.inertias(3);
+% [x, y,] = build_airfoil();
+
 
 %% Functions
 [x, y, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil();
 [L_distribution, D_distribution] = LD_plots();
 [Sx, Sy, Mx, My, sigma_z] = SMsigma_plots(alpha, x, y, z, Ixx, Iyy, Ixy, L_distribution, D_distribution);
 [u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);
-[Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar);
-[Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar);
-[q, tau] = Shear_Flow_0(x, y, z, Booms, Sx, Sy, A1, A2, qb, G, Term_2, M_0, x_quarterchord, skin, str, caps, spar); %% need M_0
+% [Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar);
+% [Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar);
+% [q, tau] = Shear_Flow_0(x, y, z, Booms, Sx, Sy, A1, A2, qb, G, Term_2, M_0, x_quarterchord, skin, str, caps, spar); %% need M_0
 
