@@ -166,10 +166,10 @@ for k = 1:5
     end    
 end
 
-    for i = 1:length(x)
-        sigma_plot.alt(i) = sigma_z.alt(i,1,1);
-        sigma_plot.sea(i) = sigma_z.sea(i,1,1);
-    end
+for i = 1:length(x)
+    sigma_plot.alt(i) = sigma_z.alt(i,1,1);
+    sigma_plot.sea(i) = sigma_z.sea(i,1,1);
+end
 
 
 figure;

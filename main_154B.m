@@ -105,4 +105,6 @@ structure.G  = 28E9;                  % Pa
 [Booms] = Booms(x, y, z, sigma_z, skin, str, caps, spar, dz);
 [Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar, dz);
 [q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, structure, Term_2, M_0, x_quarterchord, skin, str, caps, spar, dz); %% need M_0
+buckling(sigma_z);
+
 
