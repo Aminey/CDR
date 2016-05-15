@@ -1,4 +1,4 @@
-function [shear_check] = Check_S(x, y, z, dz, q)
+function [shear_check] = Check_S(x, y, z, dz, q, Sx, Sy)
 
 %%Initialize
 
@@ -13,12 +13,22 @@ for k = 1:5
            delta_y_sea(i,j,k) = q.sea(i,j,k)*(y(i+1)-y(i));
         end
         
-        delta_x_sea(length(x),j,k) = q.sea(length(x),j,k) * (x(1) - x(length(x)))
+        delta_x_sea(length(x),j,k) = q.sea(length(x),j,k) * (x(1) - x(length(x)));
+        delta_y_sea(length(x),j,k) = q.sea(length(x),j,k) * (y(1) - y(length(x)));    
         
         shear_check.x_sea(j,k) = sum(delta_x_sea(:,j,k));
         shear_check.y_sea(j,k) = sum(delta_y_sea(:,j,k));
     end
 end
 
+disp('Sx.sea(1,1) = ');
+disp(Sx.sea(1,1));
+disp('shear_check.x_sea(1,1) = ');
+disp(shear_check.x_sea(1,1));
 
-
+disp('Sy.sea(1,1) = ');
+disp(Sy.sea(1,1));
+disp('shear_check.y_sea(1,1) no spar = ');
+disp(shear_check.y_sea(1,1));
+disp('shear_check.y_sea(1,1) + spar = ');
+disp(shear_check.y_sea(1,1) + 
