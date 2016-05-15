@@ -160,10 +160,10 @@ disp(vpa(q01.sea(1,1)));
 disp('q02 =');
 disp(vpa(q02.sea(1,1)));
 
-figure;
-plot(x,tau.sea(:,1,1));
-disp(count);
-count = count + 1;
+% figure;
+% plot(x,tau.sea(:,1,1));
+% disp(count);
+% count = count + 1;
 
 end
 end

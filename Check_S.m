@@ -1,4 +1,4 @@
-function [shear_check] = Check_S(x, y, z, dz, q)
+function [shear_check] = Check_S(x, y, z, dz, q, Sx, Sy)
 
 %%Initialize
 
@@ -21,5 +21,7 @@ for k = 1:5
     end
 end
 
-
-
+disp('Sx.sea(1,1) = ');
+disp(Sx.sea(1,1));
+disp('shear_check.x_sea(1,1) = ');
+disp(shear_check.x_sea(1,1));
