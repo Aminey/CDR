@@ -7,8 +7,8 @@ str.A = str.A_upp;
 for k = 1:5
     for j = 1:dz:length(z)    
         for i = 2:length(x)-1           % first and last coordinates will be calculated separately
-            dist_rear = ((x(i)+x(i-1))^2 + (y(i)+y(i-1))^2)^0.5;
-            dist_fore = ((x(i)+x(i+1))^2 + (y(i)+y(i+1))^2)^0.5;
+            dist_rear = ((x(i)-x(i-1))^2 + (y(i)-y(i-1))^2)^0.5;
+            dist_fore = ((x(i)-x(i+1))^2 + (y(i)-y(i+1))^2)^0.5;
             if ismember(i, str.i_CCW)
                 area_term = str.A;
             elseif ismember(i, spar.i_CCW)
