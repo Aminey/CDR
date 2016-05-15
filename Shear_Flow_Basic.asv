@@ -44,14 +44,14 @@ for k = 1:5
             delta_Term_2_alt(1,j,k) = 2*delta_A(1)*qb.alt(1,j,k);
             delta_Term_2_sea(1,j,k) = 2*delta_A(1)*qb.sea(1,j,k);
             
-        for i = 2:length(x)     %% for n number of points, there will be n flows, but the first is cut. 
+        for i = 2:length(x)-1   %% for n number of points, there will be n flows, but the first is cut. 
                                  % So moving counterclockwise, you will
                                  % have point 1, flow 1, point 2, flow 2,
                                  % etc. since an i-1 term is utilized, the
                                  % i=1 term is initialized, and the loop
                                  % starts at i = 2.
             qb.sea(i,j,k) = qb.sea(i-1,j,k) + (((Sy.sea(j,k)*Ixy - Sx.sea(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*Booms.sea(i,j,k)*x(i)) +...
-                                         (((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*Booms.sea(i,j,k)*y(i));
+                                         (((Sx.sea(j,k)*Ixy - Sy.sea(j,k)*Iyy )/(Ixx*Iyy-Ixy^2))*Booms.sea(i,j,k)*y(i));
             qb.alt(i,j,k) = qb.alt(i-1,j,k) + (((Sy.alt(j,k)*Ixy - Sx.alt(j,k)*Ixx)/(Ixx*Iyy - Ixy^2))*Booms.alt(i,j,k)*x(i)) +...
                                          (((Sx.alt(j,k)*Ixy - Sy.alt(j,k)*Iyy)/(Ixx*Iyy-Ixy^2))*Booms.alt(i,j,k)*y(i));
             delta_Term_2_alt(i,j,k) = 2*delta_A(i)*qb.alt(i,j,k);
@@ -62,7 +62,5 @@ for k = 1:5
        
     end
 end
-
-
 
 disp('Shear_Flow_Basic complete');
