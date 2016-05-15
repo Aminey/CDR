@@ -1,4 +1,4 @@
-function [Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar, dz)
+function [Term_2, A1, A2, A_total, qb] = Shear_Flow_Basic(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, spar, dz, x_quarterchord)
 
 %% Initialize
 
@@ -16,8 +16,14 @@ x_temp = zeros(1,length(x));
 
 %% Find incremental, cell, and total area
 
+for i = 1:length(x)
+    x_temp(i) = x(i) ;%- x_quarterchord; % temporary coordinate shift with x=0 on quarterchord.
+                                       % need this to calculate delta A
+                                       % term for parallelogram method.
+end
+
 for i = 1:length(x)-1
-    delta_A(i) = abs(x(i+1)*y(i) - y(i+1)*x(i))/2;
+    delta_A(i) = abs(x_temp(i+1)*y(i) - y(i+1)*x_temp(i))/2;
 end
     
 for i = 1:length(x)

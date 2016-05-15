@@ -99,6 +99,6 @@ xlabel('x');
 ylabel('sigma_z.alt*Booms.alt');
 
 disp('sum sigma*boom = ');
-sum(sigma_z.alt(:,1,1).*Booms.alt(:,1,1))
+disp(sum(sigma_z.alt(:,1,1).*Booms.alt(:,1,1)));
 
 disp('Booms complete');
