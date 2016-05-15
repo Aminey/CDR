@@ -12,27 +12,16 @@ Term_2.sea = zeros(length(z),5);
 qb.sea = zeros(length(x),length(z),5);
 qb.alt = zeros(length(x),length(z),5);
 
-x_temp = zeros(1,length(x));
-
 %% Find incremental, cell, and total area
 
-for i = 1:length(x)
-    x_temp(i) = x(i) ;%- x_quarterchord; % temporary coordinate shift with x=0 on quarterchord.
-                                       % need this to calculate delta A
-                                       % term for parallelogram method.
+for i = 1:length(x)-1
+    delta_A(i) = abs(x(i)*y(i+1) - y(i)*x(i+1) + x_quarterchord*(y(i)-y(i+1)))/2;
 end
 
-for i = 1:length(x)-1
-    delta_A(i) = abs(x_temp(i+1)*y(i) - y(i+1)*x_temp(i))/2;
-end
-    
-for i = 1:length(x)
-    x_temp(i) = x(i) - spar.x_c(1); % temporary coordinate shift with x=0 on front spar.
-                                  % need this to calculate area of each cell.
-end
+delta_A(length(x)) = abs(x(end)*y(1) - x(1)*y(end) + x_quarterchord*(y(end)-y(1)))/2;
 
 for i = spar.i_CCW(2):spar.i_CCW(3)-1
-    delta_A1(i) = abs(x_temp(i+1)*y(i) - y(i+1)*x_temp(i))/2;
+    delta_A1(i) = abs(x(i)*y(i+1) - y(i)*x(i+1) - spar.x(2)*(y(i)-y(i+1)))/2;
 end
 
 A_total = sum(delta_A);

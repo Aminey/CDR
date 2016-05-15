@@ -17,7 +17,7 @@ spar.t = 0.0025;                               % thickness of spar
 str.A_upp = 5E-6;                            % area of each upper stringer
 str.A_low = 5E-6;                            % area of each lower stringer
 caps.A = 1E-5;                                % area of spar caps
-spar.x = x(500/4);                                                      % choose x location of spar
+spar.x = x(100);                                                      % choose x location of spar
 str.x_upp = [x(1), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of upper stringers
 str.x_low = [x(1), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of lower stringers
 
