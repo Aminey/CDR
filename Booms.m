@@ -94,8 +94,11 @@ xlabel('x');
 ylabel('Booms.alt');
 
 figure;
-plot(1:length(x),sigma_z.alt(:,1,1).*Booms.alt(:,1,1));
+plot(x,sigma_z.alt(:,1,1).*Booms.alt(:,1,1));
 xlabel('x');
 ylabel('sigma_z.alt*Booms.alt');
+
+disp('sum sigma*boom = ');
+sum(sigma_z.alt(:,1,1).*Booms.alt(:,1,1))
 
 disp('Booms complete');

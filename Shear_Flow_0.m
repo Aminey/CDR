@@ -1,4 +1,4 @@
-function [q, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, structure, Term_2, M_0, x_quarterchord, skin, str, caps, spar, dz);
+function [q, q01, q02, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, structure, Term_2, M_0, x_quarterchord, skin, str, caps, spar, dz);
 
 % check what thickness should be
 
@@ -154,7 +154,14 @@ end
     tau.sea_spar(j,k) = q.sea_spar(j,k) / spar.t;
     tau.alt_spar(j,k) = q.alt_spar(j,k) / spar.t;
     
-tau.alt_spar(j,k)
+disp('q01 = ');
+disp(vpa(q01.sea(1,1)));
+    
+disp('q02 =');
+disp(vpa(q02.sea(1,1)));
+
+figure;
+plot(x,tau.sea(:,1,1));
 disp(count);
 count = count + 1;
 
