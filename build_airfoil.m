@@ -1,4 +1,4 @@
-%function [x_c, y_c, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil()
+function [x_c, y_c, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil()
 
 
 clear all;
