@@ -180,9 +180,9 @@ ylabel('Sigma_zz at altitude (N/m^2');
 
 figure;
 plot(x,sigma_plot.sea);
-legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
+%legend('PHAA','PLAA','NHAA','Maximum Downward Gust','NLAA Gust','Location','Best');
 xlabel('Chordwise Length (m)');
-ylabel('Sigma_zz at sea level (N/m^2');
+ylabel('Direct Stress at sea level (N/m^2)');
 
 disp('SMsigma_plots complete');
 
