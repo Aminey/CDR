@@ -269,7 +269,6 @@ p.caps_upp = plot(caps.x_upp_c, caps.y_upp_c, 'sm', 'markersize', 10);
 p.caps_low = plot(caps.x_low_c, caps.y_low_c, 'sm', 'markersize', 10);
 rectangle('Position',[x(spar.i(1))-spar.t/2-Cx, yL(spar.i(1))-Cy, spar.t, yU(spar.i(1))-yL(spar.i(1))]);
 rectangle('Position',[x(spar.i(2))-spar.t/2-Cx, yL(spar.i(2))-Cy, spar.t, yU(spar.i(2))-yL(spar.i(2))]);
-plot(spar.x,yU(spar.i),'sg',spar.x,yL(spar.i),'sg','markersize',7);
 p.centroid = plot(0,0,'r*', 'markersize', 10);
 legend([p.centroid, p.skin_upp, p.str_upp, p.spar1, p.caps_upp],'Overall Centroid', 'Skin', 'Stringer', 'Spar', 'Spar Cap');
 ylabel('y (m)')
