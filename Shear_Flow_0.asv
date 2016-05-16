@@ -166,7 +166,7 @@ disp(vpa((1/(2*A1*structure.G)) * (q01.sea(1,1)*(sum_term_a1(1,1)) + (q01.sea(1,
 figure;
 plot(x,tau.sea(:,1,1));
 xlabel('x');
-ylabel('Pa');
+
 
 
 end

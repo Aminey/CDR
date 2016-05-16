@@ -250,7 +250,7 @@ caps.i_CCW = spar.i_CCW;
 x_c = x_CCW - Cx;
 y_c = y_CCW - Cy;
 
-x_quarterchord = (max(x_c)-min(x_c))/4 + min(x_c);
+x_quarterchord = c/4 - Cx;
 
 
 %% Centroid-centered plot

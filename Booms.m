@@ -12,7 +12,7 @@ for k = 1:5
             if ismember(i, str.i_CCW)
                 area_term = str.A;
             elseif ismember(i, spar.i_CCW)
-                area_term = caps.A;
+                area_term = 2 * caps.A;
             else
                 area_term = 0;
             end

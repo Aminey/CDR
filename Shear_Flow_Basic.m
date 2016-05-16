@@ -63,6 +63,6 @@ end
 figure;
 plot(x,qb.alt(:,1,1));
 xlabel('x');
-ylabel('qb.alt');
+ylabel('N/m');
 
 disp('Shear_Flow_Basic complete');
