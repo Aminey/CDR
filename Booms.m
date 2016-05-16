@@ -12,7 +12,7 @@ for k = 1:5
             if ismember(i, str.i_CCW)
                 area_term = str.A;
             elseif ismember(i, spar.i_CCW)
-                area_term = 2*caps.A;
+                area_term = caps.A;
             else
                 area_term = 0;
             end
@@ -61,9 +61,9 @@ for k = 1:5
 
     for i = 2:3
        Booms.sea(spar.i_CCW(i),j,k) = Booms.sea(spar.i_CCW(i),j,k) + spar.t * spar.h(1)/6 * ...
-                                                ((2 + sigma_z.sea(spar.i_CCW(5-i),j,k))/sigma_z.sea(spar.i_CCW(i),j,k));
+                                                (2 + (sigma_z.sea(spar.i_CCW(5-i),j,k)/sigma_z.sea(spar.i_CCW(i),j,k)));
        Booms.alt(spar.i_CCW(i),j,k) = Booms.alt(spar.i_CCW(i),j,k) + spar.t * spar.h(1)/6 * ...
-                                                ((2 + sigma_z.alt(spar.i_CCW(5-i),j,k))/sigma_z.alt(spar.i_CCW(i),j,k));
+                                                (2 + (sigma_z.alt(spar.i_CCW(5-i),j,k)/sigma_z.alt(spar.i_CCW(i),j,k)));
 
     end
     end
