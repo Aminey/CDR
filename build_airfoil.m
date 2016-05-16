@@ -261,7 +261,7 @@ ylim([-0.3 0.3])
 xlim([1.1*(-Cx),1.1*(x(end)-Cx)]);
 p.skin_upp = plot(skin.x_low_c, skin.y_low_c, 'g.', 'markersize',8);
 p.skin_low = plot(skin.x_upp_c, skin.y_upp_c, 'g.','markersize',8);
-p.str_upp  = plot(str.x_low_c, str.y_low_c, 'or', 'markersize',5);
+p.str_upp  = plot(str.x_upp_c, str.y_upp_c, 'or', 'markersize',5);
 p.str_low  = plot(str.x_low_c, str.y_low_c, 'or', 'markersize',5);
 p.spar1    = plot(spar.x_c(1), 0.5*(spar.y_upp(1) + spar.y_low(1)) - Cy, 'bx', 'markersize', 8);
 p.spar2    = plot(spar.x_c(2), 0.5*(spar.y_upp(2) + spar.y_low(2)) - Cy, 'bx', 'markersize', 8);
