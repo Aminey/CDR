@@ -65,8 +65,8 @@ for k = 1:5
 end
 
 figure;
-plot(x,Booms.alt(:,1,1));
-xlabel('x');
+plot(1:length(x),Booms.alt(:,1,1));
+xlabel('index');
 ylabel('Booms.alt');
 
 figure;
@@ -77,7 +77,7 @@ ylabel('sigma_z.alt*Booms.alt');
 disp('sum sigma*boom = ');
 disp(sum(sigma_z.alt(:,1,1).*Booms.alt(:,1,1)));
 
-disp('ave sigma*boom = ');
+disp('rms sigma*boom = ');
 disp(rms(sigma_z.alt(:,1,1).*Booms.alt(:,1,1)));
 
 disp('fraction of final to ave = ');
