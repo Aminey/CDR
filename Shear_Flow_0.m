@@ -54,8 +54,8 @@ tau.alt = zeros(length(x),length(z),5);
 tau.sea_spar = zeros(length(x),length(z),5);
 tau.alt_spar = zeros(length(x),length(z),5);
 
-for k = 1:5
-for j = 1:dz:length(z)     
+for k = 1:1
+for j = 1:1
     
 % q01_alt = sym(zeros(length(z),5));
 % q01_sea = sym(zeros(length(z),5));
