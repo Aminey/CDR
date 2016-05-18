@@ -31,7 +31,10 @@ for k = 1:5
                               (2 + sigma_z.sea(end,j,k)/sigma_z.sea(1,j,k))+...
                               skin.t * (((x(2)-x(1))^2 + (y(2)-y(1))^2)^0.5)/6*...
                               (2 + sigma_z.sea(2,j,k)/sigma_z.sea(1,j,k)) + caps.A;
-       
+%         Booms.alt(1,j,k) = skin.t * (((x(2)-x(1))^2 + (y(2)-y(1))^2)^0.5)/6*...
+%                               (2 + sigma_z.alt(2,j,k)/sigma_z.alt(1,j,k)) + caps.A;
+%         Booms.sea(1,j,k) = skin.t * (((x(2)-x(1))^2 + (y(2)-y(1))^2)^0.5)/6*...
+%                               (2 + sigma_z.sea(2,j,k)/sigma_z.sea(1,j,k)) + caps.A;
 
 %% Last Coordinate
         Booms.alt(end,j,k) = skin.t * (((x(end)-x(end-1))^2 + (y(end)-y(end-1))^2)^0.5)/6 *...
@@ -42,21 +45,13 @@ for k = 1:5
                               (2 + sigma_z.sea(end-1,j,k)/sigma_z.sea(end,j,k))+...
                               spar.t * spar.h(2)/6*...
                               (2 + sigma_z.sea(1,j,k)/sigma_z.sea(end,j,k)) + caps.A;
-       
-       
-
-%% Stringers on first and last coordinates?
-        if ismember(1,str.i_CCW)
-           Booms.alt(1,j,k) = Booms.alt(1,j,k) + str.A; 
-           Booms.sea(1,j,k) = Booms.sea(1,j,k) + str.A;
-        end
-        if ismember(length(x),str.i_CCW)
-           Booms.alt(end,j,k) = Booms.alt(end,j,k) + str.A; 
-           Booms.sea(end,j,k) = Booms.sea(end,j,k) + str.A;
-        end
-       
-
-
+%         Booms.alt(end,j,k) = skin.t * (((x(end)-x(end-1))^2 + (y(end)-y(end-1))^2)^0.5)/6 *...
+%                               (2 + sigma_z.alt(end-1,j,k)/sigma_z.alt(end,j,k))+...
+%                               caps.A;
+%         Booms.sea(end,j,k) = skin.t * (((x(end)-x(end-1))^2 + (y(end)-y(end-1))^2)^0.5)/6 *...
+%                               (2 + sigma_z.sea(end-1,j,k)/sigma_z.sea(end,j,k))+...
+%                               caps.A;
+   
 %% Add the contribution of spar's path for shear flow
 
     for i = 2:3
@@ -81,5 +76,11 @@ ylabel('sigma_z.alt*Booms.alt');
 
 disp('sum sigma*boom = ');
 disp(sum(sigma_z.alt(:,1,1).*Booms.alt(:,1,1)));
+
+disp('ave sigma*boom = ');
+disp(rms(sigma_z.alt(:,1,1).*Booms.alt(:,1,1)));
+
+disp('fraction of final to ave = ');
+disp( sum(sigma_z.alt(:,1,1).*Booms.alt(:,1,1)) / rms(sigma_z.alt(:,1,1).*Booms.alt(:,1,1)));
 
 disp('Booms complete');
