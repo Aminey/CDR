@@ -1,10 +1,5 @@
 function [q, q01, q02, tau] = Shear_Flow_0(x, y, z, Ixx, Iyy, Ixy, Booms, Sx, Sy, A1, A2, qb, structure, Term_2, M_0, x_quarterchord, skin, str, caps, spar, dz);
-
-% check what thickness should be
-
 %% Initialize
-
-count = 1;
 
 % dtheta_dz_1
 delta_term_a1 = zeros(length(x),length(z),5);
@@ -59,8 +54,8 @@ tau.alt = zeros(length(x),length(z),5);
 tau.sea_spar = zeros(length(x),length(z),5);
 tau.alt_spar = zeros(length(x),length(z),5);
 
-for k = 1:1
-for j = 1:1
+for k = 1:5
+for j = 1:dz:length(z)     
     
 % q01_alt = sym(zeros(length(z),5));
 % q01_sea = sym(zeros(length(z),5));
