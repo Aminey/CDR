@@ -237,14 +237,14 @@ for i = 1:length(x)
     yL_CCW(i) = yL(end - i + 1);
 end
 y_CCW = [yU_CCW yL_CCW(end:-1:1)];         
-x_CCW = [x_CCW x(1:end)];
+x_CCW = [x_CCW x(2:end)];
 
 spar.i_CCW = length(x) - spar.i + 1;
 spar.i_CCW = sort([spar.i_CCW, (length(x) + spar.i - 1)]); 
 skin.i_CCW = length(x) - skin.i_upp + 1;
 skin.i_CCW = sort([skin.i_CCW, (length(x) + skin.i_low - 1)]);
-str.i_CCW = length(x) - str.i_upp + 1;
-str.i_CCW = sort([str.i_CCW, (length(x) + str.i_low - 1)]);
+str.i_CCW  = length(x) - str.i_upp + 1;
+str.i_CCW  = sort([str.i_CCW, (length(x) + str.i_low - 1)]);
 caps.i_CCW = spar.i_CCW;
 
 x_c = x_CCW - Cx;
