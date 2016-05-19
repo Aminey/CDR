@@ -13,7 +13,7 @@ x = 0:dx:c;             % even spacing
 
 %% Structural elements (arbitrary inputs for now)
 skin.t = 0.001;                               % thickness of skin
-spar.t = 0.025;                               % thickness of spar
+spar.t = 0.005;                               % thickness of spar
 str.A_upp = 5E-6;                            % area of each upper stringer
 str.A_low = 5E-6;                            % area of each lower stringer
 caps.A = 1E-5;                                % area of spar caps
@@ -237,7 +237,7 @@ for i = 1:length(x)
     yL_CCW(i) = yL(end - i + 1);
 end
 y_CCW = [yU_CCW yL_CCW(end:-1:1)];         
-x_CCW = [x_CCW x(2:end)];
+x_CCW = [x_CCW x(1:end)];
 
 spar.i_CCW = length(x) - spar.i + 1;
 spar.i_CCW = sort([spar.i_CCW, (length(x) + spar.i - 1)]); 
