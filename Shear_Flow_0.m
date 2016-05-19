@@ -139,8 +139,8 @@ for i = spar.i_CCW(2):spar.i_CCW(3)-1
     tau.alt(i,j,k) = q.alt(i,j,k) / skin.t;
 end
 for i = spar.i_CCW(3):length(x)
-    q.sea(i,j,k) = qb.sea(i,j,k) + q01.sea(j,k);
-    q.alt(i,j,k) = qb.alt(i,j,k) + q01.alt(j,k);
+    q.sea(i,j,k) = qb.sea(i,j,k) + q02.sea(j,k);
+    q.alt(i,j,k) = qb.alt(i,j,k) + q02.alt(j,k);
     tau.sea(i,j,k) = q.sea(i,j,k) / skin.t;
     tau.alt(i,j,k) = q.alt(i,j,k) / skin.t;
 end

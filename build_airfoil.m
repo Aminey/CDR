@@ -1,7 +1,7 @@
-% function [x_c, y_c, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil()
+function [x_c, y_c, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil()
 
 
-clear all;
+% clear all;
 %% 2415 Airfoil 
 m = 0.02;               % 
 p = 0.4;                % max camber

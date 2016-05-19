@@ -67,8 +67,7 @@ for k = 1:5
     end
 end
 
-disp('Check final qb.alt by percent:');
-disp(100*qb.alt(end,1,1)/rms(qb.alt(:,1,1)));
+disp(Che
 
 figure;
 plot(x,qb.alt(:,1,1));

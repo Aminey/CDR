@@ -80,7 +80,7 @@ disp(sum(sigma_z.alt(:,1,1).*Booms.alt(:,1,1)));
 disp('rms sigma*boom = ');
 disp(rms(sigma_z.alt(:,1,1).*Booms.alt(:,1,1)));
 
-disp('fraction of final to ave = ');
-disp( sum(sigma_z.alt(:,1,1).*Booms.alt(:,1,1)) / rms(sigma_z.alt(:,1,1).*Booms.alt(:,1,1)));
+disp('percent of final to ave = ');
+disp( 100*abs(sum(sigma_z.alt(:,1,1).*Booms.alt(:,1,1)) / rms(sigma_z.alt(:,1,1).*Booms.alt(:,1,1))));
 
 disp('Booms complete');
