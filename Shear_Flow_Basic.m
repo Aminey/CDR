@@ -67,6 +67,8 @@ for k = 1:5
     end
 end
 
+disp('Final qb.alt(end,1,1) value = ');
+disp(qb.alt(end,1,1));
 disp('Check final qb.alt by percent:');
 disp(100*qb.alt(end,1,1)/rms(qb.alt(:,1,1)));
 
