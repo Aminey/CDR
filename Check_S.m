@@ -17,7 +17,7 @@ for k = 1:5
         delta_y_sea(length(x),j,k) = q.sea(length(x),j,k) * (y(1) - y(length(x)));    
         
         shear_check.x_sea(j,k) = sum(delta_x_sea(:,j,k));
-        shear_check.y_sea(j,k) = sum(delta_y_sea(:,j,k)) + q01.sea(j,k)*spar.h(1);
+        shear_check.y_sea(j,k) = sum(delta_y_sea(:,j,k)) + (q01.sea(j,k)-q02.sea(j,k))*spar.h(1);
     end
 end
 
