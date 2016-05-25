@@ -158,10 +158,15 @@ disp(vpa(q02.sea(1,1)));
 disp('dtheta_dz.sea(1,1) = ');
 disp(vpa((1/(2*A1*structure.G)) * (q01.sea(1,1)*(sum_term_a1(1,1)) + (q01.sea(1,1)-q02.sea(1,1))*(caps.y_low_c(1) - caps.y_upp_c(1))/spar.t + ((Sy.sea(1,1)*Ixy - Sx.sea(1,1)*Ixx)/(Ixx*Iyy-Ixy^2))*(sum_term_a2.sea(1,1)) + ((Sx.sea(1,1)*Ixy-Sy.sea(1,1)*Iyy)/(Ixx*Iyy-Ixy^2))*(sum_term_a3.sea(1,1)))));
 
+% figure;
+% plot(z,q01.sea(:,:));
+% xlabel('z')
+% ylabel('q01.sea');
+
 figure;
-plot(x,tau.sea(:,1,1));
+plot(1:length(x),tau.sea(:,1,1)/100000);
 xlabel('x');
-ylabel('Pa');
+ylabel('Shear Stress (MPa)');
 
 
 end

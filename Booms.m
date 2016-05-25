@@ -67,7 +67,7 @@ end
 figure;
 plot(1:length(x),Booms.alt(:,1,1));
 xlabel('index');
-ylabel('Booms.alt');
+ylabel('Boom areas (m^2)');
 
 figure;
 plot(x,sigma_z.alt(:,1,1).*Booms.alt(:,1,1));

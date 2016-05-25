@@ -73,8 +73,8 @@ disp('Check final qb.alt by percent:');
 disp(100*qb.alt(end,1,1)/rms(qb.alt(:,1,1)));
 
 figure;
-plot(x,qb.alt(:,1,1));
-xlabel('x');
-ylabel('N/m');
+plot(1:length(x),qb.alt(:,1,1));
+xlabel('index');
+ylabel('q_b (N/m)');
 
 disp('Shear_Flow_Basic complete');

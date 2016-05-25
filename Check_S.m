@@ -17,7 +17,7 @@ for k = 1:5
         delta_y_sea(length(x),j,k) = q.sea(length(x),j,k) * (y(1) - y(length(x)));    
         
         shear_check.x_sea(j,k) = sum(delta_x_sea(:,j,k));
-        shear_check.y_sea(j,k) = sum(delta_y_sea(:,j,k)) + (q.sea_spar(j,k))*spar.h(1);
+        shear_check.y_sea(j,k) = sum(delta_y_sea(:,j,k)) + (q.sea_spar(j,k))*spar.h(1) + (q02.sea(j,k)*spar.h(2));
     end
 end
 
@@ -33,4 +33,4 @@ disp(Sy.sea(1,1));
 disp('shear_check.y_sea(1,1) = ');
 disp(vpa(shear_check.y_sea(1,1)));
 disp('Sy percent error = ');
-disp(100 * abs((Sy.sea(1,1)-shear_check.y_sea(1,1))/Sy.sea(1,1)));
+disp(vpa(100 * abs((Sy.sea(1,1)-shear_check.y_sea(1,1))/Sy.sea(1,1))));
