@@ -3,8 +3,8 @@ function [yield] = Von_Mises(sigma_z, tau, x, dz, z)
 
 %% Initialize
 yield_stress = 0; % change
-yield.alt = zeros(length(x), length(z)/dz, 5);
-yield.sea = zeros(length(x), length(z)/dz, 5);
+yield.alt = zeros(length(x), round(length(z)/dz), 5);
+yield.sea = zeros(length(x), round(length(z)/dz), 5);
 
 
 %% Check for Yielding at all points, along span, for each condition
@@ -26,7 +26,9 @@ end
 plot(1:length(x), yield.alt(:,1,1));
 plot(1:length(x), yield.alt(:,1,1));
 
-if ismember(1, yield);
+if ismember(1, yield.sea);
+    disp('Structure Yields')
+elseif ismember(1, yield.alt);
     disp('Structure Yields')
 else
     disp('Structure Does Not Yield')
