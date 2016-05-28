@@ -18,7 +18,15 @@ for k = 1:5
                 yield.sea(i,j,k) = 1;
             end
         end
-        % check yielding on spars here
+        if yield_stress <= ((( 2 * (sigma_z.sea_spar(j,k))^2 + 6 * (tau.sea_spar(j,k)^2))/2)^0.5)
+            yield.sea_spar(j,k) = 1;
+        end
+        if yield_stress <= ((( 2 * (sigma_z.alt_spar(j,k))^2 + 6 * (tau.alt_spar(j,k)^2))/2)^0.5)
+            yield.alt_spar(j,k) = 1;
+        end
+        % need rear spar here           if yield_stress <= ((( 2 * (sigma_z.sea_spar(j,k))^2 + 6 * (tau.sea_spar(j,k)^2))/2)^0.5)
+           % yield.sea_spar(j,k) = 1;
+        end
     end
 end
 
