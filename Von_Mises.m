@@ -23,8 +23,8 @@ end
 
 
 %% Plots
-plot(1:length(x), yield.alt(:,1,:));
-plot(1:length(x), yield.alt(:,1,:));
+plot(1:length(x), yield.alt(:,1,1));
+plot(1:length(x), yield.alt(:,1,1));
 
 if ismember(1, yield);
     disp('Structure Yields')
