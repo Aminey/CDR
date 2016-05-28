@@ -17,16 +17,7 @@ for k = 1:5
             if yield_stress <= ((( 2 * (sigma_z.sea(i,j,k))^2 + 6 * (tau.sea(i,j,k)^2))/2)^0.5)
                 yield.sea(i,j,k) = 1;
             end
-        end
-        if yield_stress <= ((( 2 * (%sigma_z.sea_spar(j,k))^2 + 6 * (tau.sea_spar(j,k)^2))/2)^0.5)
-            yield.sea_spar(j,k) = 1;
-        end
-        if yield_stress <= ((( 2 * (%sigma_z.alt_spar(j,k))^2 + 6 * (tau.alt_spar(j,k)^2))/2)^0.5)
-            yield.alt_spar(j,k) = 1;
-        end
-        % need rear spar here           if yield_stress <= ((( 2 * (sigma_z.sea_spar(j,k))^2 + 6 * ((q02.sea(j,k)/spar.t)^2))/2)^0.5)
-           % yield.sea_spar(j,k) = 1;
-        end
+        end       
     end
 end
 
@@ -34,8 +25,6 @@ end
 %% Plots
 plot(1:length(x), yield.alt(:,1,:));
 plot(1:length(x), yield.alt(:,1,:));
-
-% need to plot yielding on spars as well
 
 if ismember(1, yield);
     disp('Structure Yields')
