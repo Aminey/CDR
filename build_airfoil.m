@@ -12,7 +12,7 @@ dx = c/nx;
 x = 0:dx:c;             % even spacing
 
 %% Structural elements (arbitrary inputs for now)
-skin.t = 0.002;                               % thickness of skin
+skin.t = 0.008;                               % thickness of skin
 spar.t = 0.01;                               % thickness of spar
 str.A_upp = 5E-6;                            % area of each upper stringer
 str.A_low = 5E-6;                            % area of each lower stringer
