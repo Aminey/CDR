@@ -6,6 +6,8 @@ f = 1;                      % given by teacher
 c = 1.6*10^-11;             % given by teacher
 m = 3.59;                   % given by teacher
 
+%% Initia
+
 %% Critical Crack Length
 
 % loop will find critical crack length "a" at each point along the airfoil
@@ -16,7 +18,7 @@ end
 
 %% Cycles to Failure
 
-cycles = 
+cycles = (1/(c*((sigma_z.sea(:,1,1)-sigma_z.sea(:,1,4))*pi^0.5)^m)) * (((a^(1-m/2))/(1-m/2))-((a_frac^(1-m/2))/(1-m/2)));
 
 
 
