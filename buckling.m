@@ -28,7 +28,7 @@ function [rib_spacing] = buckling(sigma_z,str,structure)
     l = sqrt(pi^2*E*stringer_I/(1.5*max_stress*stringer_area*0.5^2)); %m    
     rib_spacing = l; %m
     
-    disp(['Ribs need to be placed ' num2str(rib_spacing) ' meters apart to prevent buckling']);
+    disp([num2str(5.41/rib_spacing) ' ribs need to be placed ' num2str(rib_spacing) ' meters apart to prevent buckling']);
     disp('Buckling complete');
     disp('You receive AIDS!');
     

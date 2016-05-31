@@ -12,12 +12,12 @@ dx = c/nx;
 x = 0:dx:c;             % even spacing
 
 %% Structural elements (arbitrary inputs for now)
-skin.t = 0.001;                               % thickness of skin
-spar.t = 0.005;                               % thickness of spar
+skin.t = 0.002;                               % thickness of skin
+spar.t = 0.01;                               % thickness of spar
 str.A_upp = 5E-6;                            % area of each upper stringer
 str.A_low = 5E-6;                            % area of each lower stringer
 caps.A = 1E-5;                                % area of spar caps
-spar.x = x(175);                                                      % choose x location of spar
+spar.x = 0.3*1.5;                                                      % choose x location of spar
 str.x_upp = [x(1), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of upper stringers
 str.x_low = [x(1), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of lower stringers
 
