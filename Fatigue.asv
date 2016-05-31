@@ -1,0 +1,14 @@
+function [cycles] = Fatigue(sigma_z)
+
+%% INPUTS
+K_IC = 26*10^6;             % Pa(m)^0.5
+f = 1;                      % given by teacher
+sigma_inf.sea = max(sigma_z.sea);   % i think
+sigma_inf.alt = max(sigma_z.alt);
+
+%% Critical Crack Length
+
+a = (K_IC/(f*sigma_inf))^2 / pi;
+
+disp(a);
+
