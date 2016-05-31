@@ -1,14 +1,22 @@
-function [cycles] = Fatigue(sigma_z)
+function [cycles] = Fatigue(x, sigma_z)
 
 %% INPUTS
 K_IC = 26*10^6;             % Pa(m)^0.5
 f = 1;                      % given by teacher
-sigma_inf.sea = max(sigma_z.sea);   % i think
-sigma_inf.alt = max(sigma_z.alt);
+c = 1.6*10^-11;             % given by teacher
+m = 3.59;                   % given by teacher
 
 %% Critical Crack Length
 
-a = (K_IC/(f*sigma_inf))^2 / pi;
+% loop will find critical crack length "a" at each point along the airfoil
+for i = 1:length(x)
+    a.sea(i) = (K_IC/(f*sigma_z.sea(:,1,1)))^2/pi;
+    a.alt(i) = (K_IC/(f*sigma_z.alt(:,1,1)))^2/pi;
+end
 
-disp(a);
+%% Cycles to Failure
+
+cycles = 
+
+
 
