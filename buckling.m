@@ -22,30 +22,50 @@ function [rib_spacing] = buckling(sigma_z,str,structure,skin)
             %correspond to critical flight conditions as following convention above
             stress_sea = sigma_z.sea(i,1,j);
             stress_alt = sigma_z.alt(i,1,j);            
-            stringer_stress(i,j) = max([stress_sea stress_alt]);
+            stringer_stress(i,j) = min([stress_sea stress_alt]);
         end
     end     
-    max_stress = max(max(stringer_stress));
+    max_stress = min(min(stringer_stress));
     
-    l = sqrt(pi^2*E*stringer_I/(1.5*max_stress*stringer_area*0.5^2)); %m    
+    l = sqrt(pi^2*E*stringer_I/(1.5*-1*max_stress*stringer_area*0.5^2)); %m    
     rib_spacing = l; %m
     
     disp([num2str(5.41/rib_spacing) ' ribs need to be placed ' num2str(rib_spacing) ' meters apart to prevent buckling']);
     
-    %%skin buckling
-    for i = 1:length(str.i_CCW)
-        for j = 1:5        
-            %rows correspond to max bending stress in a given stringer, columns 
-            %correspond to critical flight conditions as following convention above
-            stress_sea = sigma_z.sea(i,1,j);
-            stress_alt = sigma_z.alt(i,1,j);            
-            stringer_stress(i,j) = max([stress_sea stress_alt]);
-        end
+    %%skin buckling (upper side only)
+    stringer_distances = [];
+    for i = 1:length(str.i_upp)-1
+        d = sqrt((str.x_upp(i+1)-str.x_upp(i))^2-(str.y_upp(i+1)-str.y_upp(i))^2);
+        stringer_distances = [stringer_distances d];
     end 
     
+    skin_stress_sea = [];
+    skin_stress_alt = [];
+    
+    for j = 1:5        
+        %rows correspond to max bending stress in a given stringer, columns 
+        %correspond to critical flight conditions as following convention above
+        skin_stress_sea = [skin_stress_sea min(sigma_z.sea(:,1,j))];
+        skin_stress_alt = [skin_stress_alt min(sigma_z.alt(:,1,j))];            
+    end
+    
+    max_skin_stress = min([skin_stress_sea skin_stress_alt]);    
+    k = 8.5;
+    v = 0.33;
+    
+    b = sqrt((skin_t^2*k*pi^2*E)/(12*(1-v^2)*1.5*-1*max_skin_stress));
+    
+    if max(stringer_distances) <= b
+        disp(['Skin buckling satisfied. Stringer spacing needs to be no more than ' ...
+            'more than ' num2str(b) ' m apart. The largest stringer spacing'...
+            ' is ' num2str(max(stringer_distances)) ' m.']);
+    else
+        disp(['Skin buckling not satisfied. Stringer spacing needs to be no ' ...
+            'more than ' num2str(b) ' m apart. The largest stringer spacing'...
+            ' is ' num2str(max(stringer_distances)) ' m.']);
+    end
     
     
     disp('Buckling complete');
-    disp('You receive AIDS!');
-    
+
 end
