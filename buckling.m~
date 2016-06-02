@@ -33,15 +33,6 @@ function [rib_spacing] = buckling(sigma_z,str,structure,skin)
     disp([num2str(5.41/rib_spacing) ' ribs need to be placed ' num2str(rib_spacing) ' meters apart to prevent buckling']);
     
     %%skin buckling
-    for i = 1:length(str.i_CCW)
-        for j = 1:5        
-            %rows correspond to max bending stress in a given stringer, columns 
-            %correspond to critical flight conditions as following convention above
-            stress_sea = sigma_z.sea(i,1,j);
-            stress_alt = sigma_z.alt(i,1,j);            
-            stringer_stress(i,j) = max([stress_sea stress_alt]);
-        end
-    end 
     
     
     
