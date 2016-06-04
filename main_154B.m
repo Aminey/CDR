@@ -103,7 +103,7 @@ structure.G  = 28E9;                  % Pa
 
 
 %% Functions
-[x, y, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil();
+[x, y, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil(b);
 [L_distribution, D_distribution] = LD_plots();
 [Sx, Sy, Mx, My, sigma_z, wx_sea] = SMsigma_plots(alpha, x, y, z, Ixx, Iyy, Ixy, L_distribution, D_distribution);
 [u, v] = uv_plots(z,Ixx, Iyy, Ixy, structure, My, Mx);

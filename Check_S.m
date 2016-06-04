@@ -25,12 +25,12 @@ disp('Sx.sea(1,1) = ');
 disp(Sx.sea(1,1));
 disp('shear_check.x_sea(1,1) = ');
 disp(vpa(shear_check.x_sea(1,1)));
-disp('Sx percent error = ');
+disp('                              Sx percent error = ');
 disp(100 * abs((Sx.sea(1,1)-shear_check.x_sea(1,1))/Sx.sea(1,1)));
 
 disp('Sy.sea(1,1) = ');
 disp(Sy.sea(1,1));
 disp('shear_check.y_sea(1,1) = ');
 disp(vpa(shear_check.y_sea(1,1)));
-disp('Sy percent error = ');
+disp('                              Sy percent error = ');
 disp(vpa(100 * abs((Sy.sea(1,1)-shear_check.y_sea(1,1))/Sy.sea(1,1))));
