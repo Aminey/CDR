@@ -15,14 +15,16 @@ dx = c/nx;
 x = 0:dx:c;             % even spacing
 
 %% Structural elements (arbitrary inputs for now)
-skin.t = 0.002;                               % thickness of skin
-spar.t = 0.008;                               % thickness of spar
-str.A_upp = 25E-6;                            % area of each upper stringer
-str.A_low = 25E-6;                            % area of each lower stringer
+skin.t = 0.0019;                               % thickness of skin
+spar.t = 0.005;                               % thickness of spar
+str.A_upp = 22E-6;                            % area of each upper stringer
+str.A_low = 22E-6;                            % area of each lower stringer
 caps.A = 1E-5;                                % area of spar caps
 spar.x = 0.3*1.5;                                                      % choose x location of spar
 str.x_upp = [x(1), x(10), x(25), x(50), x(80), x(110), x(140), x(170), x(200), x(225), x(250), x(280), x(310), x(340), x(370), x(400)];     % choose x locations of upper stringers
 str.x_low = [x(1), x(10), x(25), x(50), x(80), x(110), x(140), x(170), x(200), x(225), x(250), x(280), x(310), x(340), x(370), x(400)];     % choose x locations of lower stringers
+
+
 
 %% Create Airfoil from equation
 yc = zeros(1,nx+1);
