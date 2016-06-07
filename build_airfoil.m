@@ -1,7 +1,10 @@
-function [x_c, y_c, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil()
+%function [x_c, y_c, Ixx, Iyy, Ixy, skin, spar, str, caps, x_quarterchord] = build_airfoil()
 
 
 % clear all;
+
+density = 2780;         %kg/m^3
+
 %% 2415 Airfoil 
 m = 0.02;               % 
 p = 0.4;                % max camber
@@ -12,14 +15,14 @@ dx = c/nx;
 x = 0:dx:c;             % even spacing
 
 %% Structural elements (arbitrary inputs for now)
-skin.t = 0.008;                               % thickness of skin
-spar.t = 0.01;                               % thickness of spar
-str.A_upp = 5E-6;                            % area of each upper stringer
-str.A_low = 5E-6;                            % area of each lower stringer
+skin.t = 0.002;                               % thickness of skin
+spar.t = 0.008;                               % thickness of spar
+str.A_upp = 25E-6;                            % area of each upper stringer
+str.A_low = 25E-6;                            % area of each lower stringer
 caps.A = 1E-5;                                % area of spar caps
 spar.x = 0.3*1.5;                                                      % choose x location of spar
-str.x_upp = [x(1), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of upper stringers
-str.x_low = [x(1), x(50), x(150), x(200), x(250),x(300), x(350)];     % choose x locations of lower stringers
+str.x_upp = [x(1), x(10), x(25), x(50), x(80), x(110), x(140), x(170), x(200), x(225), x(250), x(280), x(310), x(340), x(370), x(400)];     % choose x locations of upper stringers
+str.x_low = [x(1), x(10), x(25), x(50), x(80), x(110), x(140), x(170), x(200), x(225), x(250), x(280), x(310), x(340), x(370), x(400)];     % choose x locations of lower stringers
 
 %% Create Airfoil from equation
 yc = zeros(1,nx+1);
@@ -252,6 +255,16 @@ y_c = y_CCW - Cy;
 
 x_quarterchord = c/4 - Cx;
 
+%% Weight of Wing 
+
+dist_fore = zeros(1, length(x_c)-1);
+
+for i = 1:length(x_c)-1           
+      dist_fore(i) = ((x_c(i)-x_c(i+1))^2 + (y_c(i)-y_c(i+1))^2)^0.5;
+end
+skin.length = sum(dist_fore(:)) + ((x_c(end-1)-x_c(end))^2 + (y_c(end-1)-y_c(end))^2)^0.5;
+
+Ribless_Wing_Weight = (skin.length*skin.t + caps.A*4 + str.A_upp*2*length(str.x_upp) + sum(spar.A)) * 10.82 * density;
 
 %% Centroid-centered plot
 figure
@@ -275,4 +288,6 @@ ylabel('y (m)')
 xlabel('x (m)')
 grid on
 
+disp('Ribless Wing Weight in kg = ');
+disp(Ribless_Wing_Weight)
 disp('build_airfoil complete');
